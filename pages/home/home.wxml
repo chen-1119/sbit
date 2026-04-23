@@ -1,6 +1,6 @@
 <view class="container home-page">
   <view class="hero">
-    <view class="hero-badge">SBIT TEST HUB</view>
+    <view class="hero-badge">SBTI TEST HUB</view>
     <view class="hero-title">聚合测试中心</view>
     <view class="hero-desc">把人格、职业、沟通、韧性与城市适配聚合到一个小程序里，形成连续可追踪的成长画像。</view>
     <view class="tag-list">

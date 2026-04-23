@@ -1,8 +1,8 @@
 <view class="container">
   <view class="welcome-shell" wx:if="{{showPage === 'welcome'}}">
     <view class="hero-card">
-      <view class="hero-badge">SBIT Personality Lab</view>
-      <view class="welcome-title">SBIT 人格实验室</view>
+      <view class="hero-badge">SBTI Personality Lab</view>
+      <view class="welcome-title">SBTI 人格实验室</view>
       <view class="welcome-subtitle">SBTI 主画像 + MBTI 补充维度 + 城市匹配建议</view>
       <view class="welcome-desc">在保留原版趣味基因的基础上，新增 MBTI 倾向测量与城市适配推荐。全部题目为二创原创表达，结果用于娱乐和自我观察。</view>
 

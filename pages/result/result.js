@@ -490,13 +490,13 @@ function buildShareText(data) {
   const weights = normalizeAxisWeights(data.axisWeights);
   const weightText = `社交${weights.social}/创新${weights.innovation}/决策${weights.logic}/秩序${weights.order}`;
   return [
-    `我的 SBIT 结果：${data.result.code}（${data.result.name}）`,
+    `我的 SBTI 结果：${data.result.code}（${data.result.name}）`,
     `SBTI 匹配度：${data.matchScore}%`,
     `MBTI 倾向：${data.mbtiResult.type}（清晰度 ${data.mbtiResult.confidenceLevel}）`,
     `职业偏好：${getCareerLabel(data.selectedCareerKey)}`,
     `城市权重：${weightText}`,
     `匹配城市：${data.cityMatches.map((city) => city.name).join(' / ')}`,
-    '来自 SBIT 人格实验室'
+    '来自 SBTI 人格实验室'
   ].join('\n');
 }
 
@@ -774,7 +774,7 @@ Page({
 
     ctx.setFillStyle('#1f6f78');
     ctx.setFontSize(30);
-    ctx.fillText('SBIT 人格实验室 · 结果卡', 36, 64);
+    ctx.fillText('SBTI 人格实验室 · 结果卡', 36, 64);
 
     ctx.setFillStyle('#2b313a');
     ctx.setFontSize(56);
@@ -891,14 +891,14 @@ Page({
 
   onShareAppMessage() {
     return {
-      title: `${this.data.result.code} | 我的 SBIT 人格结果`,
+      title: `${this.data.result.code} | 我的 SBTI 人格结果`,
       path: '/pages/index/index'
     };
   },
 
   onShareTimeline() {
     return {
-      title: `${this.data.result.code} · SBIT 人格实验室`
+      title: `${this.data.result.code} · SBTI 人格实验室`
     };
   },
 

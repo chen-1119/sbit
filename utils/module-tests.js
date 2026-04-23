@@ -54,7 +54,7 @@ const rawModules = [
     id: 'sbti_main',
     type: 'native',
     page: '/pages/index/index',
-    title: 'SBIT 人格实验室',
+    title: 'SBTI 人格实验室',
     subtitle: '深度主测',
     description: '完整版本：SBTI + MBTI + 人格匹配城市，适合第一次完整测评。',
     badge: '深度',
