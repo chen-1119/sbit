@@ -1,0 +1,157 @@
+.module-result {
+  padding-bottom: 30rpx;
+}
+
+.result-head {
+  margin-bottom: 16rpx;
+}
+
+.module-title {
+  font-size: 30rpx;
+  color: #64707d;
+}
+
+.profile-title {
+  margin-top: 6rpx;
+  font-size: 46rpx;
+  color: #1f6f78;
+  font-weight: 750;
+}
+
+.confidence {
+  margin-top: 8rpx;
+  display: inline-block;
+  font-size: 22rpx;
+  color: #a1442b;
+  background: rgba(232, 122, 93, 0.14);
+  border-radius: 999rpx;
+  padding: 6rpx 14rpx;
+}
+
+.profile-desc {
+  margin-top: 12rpx;
+  font-size: 25rpx;
+  color: #4f5c69;
+  line-height: 1.68;
+}
+
+.submitted-time {
+  margin-top: 10rpx;
+  font-size: 22rpx;
+  color: #7a838f;
+}
+
+.section-title {
+  font-size: 28rpx;
+  color: #2c3845;
+  font-weight: 650;
+  margin-bottom: 12rpx;
+}
+
+.dim-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.dim-item {
+  padding: 12rpx 0;
+}
+
+.dim-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8rpx;
+}
+
+.dim-label {
+  font-size: 24rpx;
+  color: #46525f;
+}
+
+.dim-score {
+  font-size: 24rpx;
+  color: #1f6f78;
+  font-weight: 700;
+}
+
+.dim-track {
+  height: 12rpx;
+  border-radius: 999rpx;
+  background: rgba(31, 111, 120, 0.14);
+  overflow: hidden;
+}
+
+.dim-fill {
+  height: 100%;
+  border-radius: 999rpx;
+  background: linear-gradient(90deg, #1f6f78, #e87a5d);
+}
+
+.tips {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.tip-item {
+  font-size: 24rpx;
+  color: #56616e;
+  line-height: 1.62;
+}
+
+.vibe-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+}
+
+.vibe-tag {
+  font-size: 22rpx;
+  color: #2f5d63;
+  background: rgba(31, 111, 120, 0.13);
+  border-radius: 999rpx;
+  padding: 8rpx 16rpx;
+}
+
+.summary {
+  font-size: 24rpx;
+  color: #596572;
+  line-height: 1.65;
+}
+
+.btn-copy {
+  margin-top: 14rpx;
+  height: 74rpx;
+  line-height: 74rpx;
+  border-radius: 999rpx;
+  border: none;
+  font-size: 25rpx;
+  color: #3f4a57;
+  background: rgba(90, 98, 107, 0.13);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.btn-main,
+.btn-light {
+  height: 82rpx;
+  line-height: 82rpx;
+  border-radius: 999rpx;
+  border: none;
+  font-size: 27rpx;
+}
+
+.btn-main {
+  color: #fff;
+  background: linear-gradient(130deg, #1f6f78, #e87a5d);
+}
+
+.btn-light {
+  color: #3d4a58;
+  background: rgba(90, 98, 107, 0.13);
+}

@@ -1,0 +1,88 @@
+<view class="container home-page">
+  <view class="hero">
+    <view class="hero-badge">SBIT TEST HUB</view>
+    <view class="hero-title">聚合测试中心</view>
+    <view class="hero-desc">把人格、职业、沟通、韧性与城市适配聚合到一个小程序里，形成连续可追踪的成长画像。</view>
+    <view class="tag-list">
+      <view class="tag" wx:for="{{tags}}" wx:key="*this">{{item}}</view>
+    </view>
+  </view>
+
+  <view class="overview card">
+    <view class="overview-item">
+      <view class="overview-value">{{stats.moduleCount}}</view>
+      <view class="overview-label">测试模块</view>
+    </view>
+    <view class="overview-item">
+      <view class="overview-value">{{stats.questionCount}}</view>
+      <view class="overview-label">题库总量</view>
+    </view>
+    <view class="overview-item">
+      <view class="overview-value">{{stats.totalMinutes}}</view>
+      <view class="overview-label">约总分钟</view>
+    </view>
+  </view>
+
+  <view class="featured card accent-{{featured.accent}}" wx:if="{{featured}}">
+    <view class="featured-head">
+      <view>
+        <view class="module-sub">{{featured.subtitle}}</view>
+        <view class="module-title">{{featured.title}}</view>
+      </view>
+      <view class="badge">{{featured.badge}}</view>
+    </view>
+    <view class="module-desc">{{featured.description}}</view>
+    <view class="meta-row">
+      <text>{{featured.questionCount}} 题</text>
+      <text>约 {{featured.estimatedMinutes}} 分钟</text>
+      <text>{{featured.categoryLabel}}</text>
+    </view>
+    <button class="btn-enter" bindtap="openModule" data-id="{{featured.id}}">开始主测</button>
+  </view>
+
+  <view class="section-title">选择你的模块</view>
+  <scroll-view class="category-scroll" scroll-x="true" enable-flex="true" show-scrollbar="false">
+    <view class="category-list">
+      <view
+        wx:for="{{categories}}"
+        wx:key="key"
+        class="category-chip {{activeCategory === item.key ? 'active' : ''}}"
+        data-key="{{item.key}}"
+        bindtap="onCategoryChange"
+      >
+        {{item.label}}
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="module-list">
+    <view class="module-card card accent-{{item.accent}}" wx:for="{{filteredModules}}" wx:key="id">
+      <view class="module-head">
+        <view>
+          <view class="module-sub">{{item.subtitle}} · {{item.categoryLabel}}</view>
+          <view class="module-title">{{item.title}}</view>
+        </view>
+        <view class="badge">{{item.badge}}</view>
+      </view>
+      <view class="module-desc">{{item.description}}</view>
+      <view class="meta-row">
+        <text>{{item.questionCount}} 题</text>
+        <text>约 {{item.estimatedMinutes}} 分钟</text>
+      </view>
+      <button class="btn-light" bindtap="openModule" data-id="{{item.id}}">进入测评</button>
+    </view>
+  </view>
+
+  <view class="empty card" wx:if="{{!filteredModules.length}}">
+    <view class="empty-title">当前分类暂无模块</view>
+    <view class="empty-desc">切换上方分类查看其它测试内容。</view>
+  </view>
+
+  <view class="section-title">使用建议</view>
+  <view class="guide card">
+    <view class="guide-item" wx:for="{{introPoints}}" wx:key="*this">
+      <view class="guide-dot"></view>
+      <view class="guide-text">{{item}}</view>
+    </view>
+  </view>
+</view>

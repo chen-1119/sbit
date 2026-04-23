@@ -1,12 +1,15 @@
 {
   "pages": [
+    "pages/home/home",
     "pages/index/index",
-    "pages/result/result"
+    "pages/result/result",
+    "pages/module-quiz/module-quiz",
+    "pages/module-result/module-result"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#f8f4ec",
-    "navigationBarTitleText": "SBIT 人格实验室",
+    "navigationBarTitleText": "SBIT 测试中心",
     "navigationBarTextStyle": "black"
   },
   "style": "v2",

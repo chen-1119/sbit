@@ -1,0 +1,49 @@
+<view class="container module-result" wx:if="{{module}}">
+  <view class="card result-head">
+    <view class="module-title">{{module.title}}</view>
+    <view class="profile-title">{{profile.title}}</view>
+    <view class="confidence">判定清晰度：{{confidence}}</view>
+    <view class="profile-desc">{{profile.desc}}</view>
+    <view class="submitted-time" wx:if="{{submittedAtText}}">完成时间：{{submittedAtText}}</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">维度分布</view>
+    <view class="dim-list">
+      <view class="dim-item" wx:for="{{rows}}" wx:key="key">
+        <view class="dim-head">
+          <text class="dim-label">{{item.label}}</text>
+          <text class="dim-score">{{item.percent}}%</text>
+        </view>
+        <view class="dim-track">
+          <view class="dim-fill" style="width: {{item.percent}}%;"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">行动建议</view>
+    <view class="tips">
+      <view class="tip-item" wx:for="{{profile.tips}}" wx:key="*this">{{index + 1}}. {{item}}</view>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{profile.cityVibe.length}}">
+    <view class="section-title">适配城市气质</view>
+    <view class="vibe-list">
+      <text class="vibe-tag" wx:for="{{profile.cityVibe}}" wx:key="*this">{{item}}</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">结果摘要</view>
+    <view class="summary">{{summary}}</view>
+    <button class="btn-copy" bindtap="copySummary">复制结果文案</button>
+  </view>
+
+  <view class="actions">
+    <button class="btn-main" bindtap="retake">再测一次</button>
+    <button class="btn-light" bindtap="goHome">返回测试中心</button>
+  </view>
+</view>

@@ -1,30 +1,27 @@
-# SBIT 人格实验室（微信小程序）
+# SBIT 测试中心（微信小程序）
 
-一个娱乐向人格测试小程序，融合了：
-- SBTI 主画像（核心人格匹配）
-- MBTI 补充维度（E/I、S/N、T/F、J/P）
-- 城市适配推荐（职业偏好 + 四轴权重调节）
+一个聚合式人格测试小程序，包含深度主测和多个轻量模块，目标是从不同角度形成「人格 x 职业 x 沟通 x 韧性 x 城市」的综合画像。
 
-项目已支持断点续测、结果分享、海报生成、城市推荐偏好持久化。
+## 1. 当前模块
 
-## 1. 功能概览
+### 1.1 深度主测
+- `SBIT 人格实验室`（43 题）
+- 输出：SBTI 主画像 + MBTI 补充 + 城市匹配 + 海报分享
 
-### 1.1 测试流程
-- 总题量：43 题
-- 题型结构：31 题 SBTI + 12 题 MBTI
-- 支持自动保存答题进度与继续上次测试
-- 支持重新开始并清除历史进度
+### 1.2 轻量模块（聚合入口）
+- `MBTI 快速倾向测评`（12 题）
+- `MBTI 职场协作版`（10 题）
+- `职场驱动力测评`（10 题）
+- `沟通风格识别`（10 题）
+- `决策风格测评`（10 题）
+- `情绪恢复力测评`（10 题）
+- `Big Five 轻量版`（10 题）
 
-### 1.2 结果页能力
-- SBTI 人格类型与匹配度
-- MBTI 倾向结果 + 判定清晰度
-- 生活方式标签与行动建议
-- 城市推荐 Top 3（含多维度匹配条）
-- 职业偏好筛选：综合/技术/金融/创意/制造/科研/生活方式
-- 城市权重调节：社交/创新/决策/秩序（1~4）
-- 预设权重：平衡/职业发展/机会社交/稳定可控
-- 偏好持久化（下次进入自动恢复）
-- 复制结果文案、海报生成、保存相册、分享
+所有轻量模块统一支持：
+- 断点续测
+- 自动评分
+- 结果摘要复制
+- 返回测试中心继续下一模块
 
 ## 2. 目录结构
 
@@ -34,17 +31,15 @@ sbit-miniapp/
 ├─ app.json
 ├─ app.wxss
 ├─ pages/
-│  ├─ index/
-│  │  ├─ index.js
-│  │  ├─ index.wxml
-│  │  └─ index.wxss
-│  └─ result/
-│     ├─ result.js
-│     ├─ result.wxml
-│     └─ result.wxss
+│  ├─ home/                # 测试聚合首页
+│  ├─ index/               # 深度主测问卷
+│  ├─ result/              # 深度主测结果页（含城市匹配）
+│  ├─ module-quiz/         # 通用轻量模块答题页
+│  └─ module-result/       # 通用轻量模块结果页
 ├─ utils/
-│  ├─ data.js
-│  └─ questions.js
+│  ├─ questions.js         # 深度主测题库
+│  ├─ data.js              # 深度主测人格素材
+│  └─ module-tests.js      # 聚合模块题库
 └─ docs/
    ├─ ALGORITHM.md
    └─ TESTING.md
@@ -52,66 +47,46 @@ sbit-miniapp/
 
 ## 3. 本地运行（微信开发者工具）
 
-### 3.1 环境准备
-- 安装微信开发者工具（稳定版）
-- 拥有一个可用的小程序 AppID（可选：测试号）
+1. 打开微信开发者工具并导入项目根目录：`sbit-miniapp`
+2. 选择 AppID（或测试号）
+3. 编译后默认进入 `pages/home/home`（聚合首页）
 
-### 3.2 打开项目
-1. 微信开发者工具 -> 导入项目
-2. 目录选择当前项目根目录 `sbit-miniapp`
-3. 选择 AppID 或测试号
-4. 编译运行
+建议至少验证两轮：
+- 开发者工具模拟器（快速回归）
+- 真机（iOS/Android 各一台）
 
-### 3.3 推荐测试顺序
-1. 首页 -> 开始测试 -> 完成 43 题 -> 结果页
-2. 中途退出 -> 重新进入 -> 继续上次
-3. 结果页切换职业偏好与权重
-4. 复制文案、生成海报、保存相册
+## 4. 常见报错与修复
 
-详见文档：[docs/TESTING.md](docs/TESTING.md)
+### 4.1 `Unexpected token ﻿ in JSON at position 0`
+原因：`app.json` 文件头含 BOM。
 
-## 4. 关键业务逻辑
+修复：
+- 把文件编码改为 `UTF-8（无 BOM）`
+- 确保文件名是 `app.json`（不是 `app.json.json`）
 
-### 4.1 题库与评分
-- 题库定义在 `utils/questions.js`
-- SBTI 核心匹配沿用模式比对（15 维 H/M/L）
-- MBTI 使用补充题进行四轴计算
+### 4.2 `invalid app.json permission["scope.writePhotosAlbum"]`
+原因：`scope.writePhotosAlbum` 不是 `app.json permission` 的有效声明项。
 
-### 4.2 城市推荐
-- 城市画像采用四轴向量：`social / innovation / logic / order`
-- 支持两层加权：
-  - 职业偏好加权（career boost）
-  - 维度权重加权（axis weights）
-- 最终输出 Top 3 城市及分维度匹配条
+修复：
+- 删除该权限声明
+- 保存图片时直接使用 `wx.saveImageToPhotosAlbum`，并在运行时处理授权弹窗
 
-详见文档：[docs/ALGORITHM.md](docs/ALGORITHM.md)
+### 4.3 `app.wxss unexpected invalid char at pos 1`
+原因：`app.wxss` 文件头 BOM 或编码异常。
 
-## 5. 本地存储 Key
+修复：
+- 将 `app.wxss` 保存为 `UTF-8（无 BOM）`
 
-- `sbti_answers`：最终答题结果
-- `sbti_progress_v3`：答题中断点进度
-- `sbti_city_pref_v1`：结果页职业与权重偏好
+## 5. 内容来源与二创说明
 
-## 6. 权限说明
+- 深度主测（SBTI）沿用项目内二创设定。
+- MBTI 与 Big Five 相关轻量模块采用公开概念框架做题型二创，不复用任何闭源量表原题。
+- 城市匹配属于画像化推荐，仅用于娱乐和自我观察，不用于真实迁居决策。
+- 调研来源详见：`docs/CONTENT-SOURCES.md`
 
-`app.json` 已声明：
-- `scope.writePhotosAlbum`：用于保存结果海报
+## 6. 发布前检查
 
-如果保存失败，请在小程序设置里开启相册权限。
-
-## 7. 已知边界
-
-- 结果为娱乐向二创，不用于医学或心理诊断
-- 城市推荐是画像匹配模型，不是现实迁居建议
-- 海报效果在不同机型可能存在渲染细节差异
-
-## 8. 维护建议
-
-- 修改题库请同步检查总题量与彩蛋索引
-- 修改城市算法请同步更新 `docs/ALGORITHM.md`
-- 发布前请按 `docs/TESTING.md` 完整回归
-
-## 9. 版权与说明
-
-- SBTI 角色素材参考：`sbti-wiki`（CC BY-NC-SA 4.0）
-- MBTI 与城市内容为二创原创表达
+- 按 `docs/TESTING.md` 完整回归
+- 检查 `app.json / app.wxss` 无 BOM
+- 深度主测与轻量模块至少各跑完 1 轮
+- 确认结果页复制、分享、海报、保存逻辑正常

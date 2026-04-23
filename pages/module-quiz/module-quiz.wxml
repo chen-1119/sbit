@@ -1,0 +1,42 @@
+<view class="container module-quiz">
+  <view class="head card" wx:if="{{module}}">
+    <view class="module-sub">{{module.subtitle}}</view>
+    <view class="module-title">{{module.title}}</view>
+    <view class="module-desc">{{module.description}}</view>
+  </view>
+
+  <view class="progress-container">
+    <view class="progress-text">
+      <text>第 {{currentQ + 1}} 题 / 共 {{questions.length}} 题</text>
+      <text>{{progressPercent}}%</text>
+    </view>
+    <view class="progress-bar">
+      <view class="progress-fill" style="width: {{progressPercent}}%"></view>
+    </view>
+    <view class="eta">{{etaText}}</view>
+  </view>
+
+  <view class="card" wx:if="{{questions.length}}">
+    <view class="question-text">{{questions[currentQ].q}}</view>
+    <view class="options">
+      <view
+        wx:for="{{questions[currentQ].options}}"
+        wx:for-index="idx"
+        wx:key="idx"
+        class="option {{selectedIdx === idx ? 'active' : ''}}"
+        bindtap="selectOption"
+        data-idx="{{idx}}"
+      >
+        <view class="option-letter">{{letters[idx]}}</view>
+        <view class="option-text">{{item.text}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="nav-buttons">
+    <button class="btn-prev" bindtap="prevQuestion" disabled="{{currentQ === 0}}">上一题</button>
+    <button class="btn-next {{selectedIdx === -1 ? 'disabled' : ''}}" bindtap="nextQuestion">{{currentQ === questions.length - 1 ? '查看结果' : '下一题'}}</button>
+  </view>
+
+  <view class="warning {{showWarning ? 'show' : ''}}">请选择一个答案再继续</view>
+</view>
