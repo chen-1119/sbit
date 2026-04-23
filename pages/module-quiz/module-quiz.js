@@ -51,6 +51,28 @@ Page({
       return;
     }
 
+    const init = () => this.initModule(moduleId, module);
+    if (module.adultOnly) {
+      wx.showModal({
+        title: '18+ 内容提示',
+        content: '该模块仅供成年人自我观察，结果不用于医学或临床诊断。确认继续吗？',
+        confirmText: '继续',
+        cancelText: '返回',
+        success: (res) => {
+          if (res.confirm) {
+            init();
+          } else {
+            setTimeout(() => wx.navigateBack({ delta: 1 }), 200);
+          }
+        }
+      });
+      return;
+    }
+
+    init();
+  },
+
+  initModule(moduleId, module) {
     wx.setNavigationBarTitle({ title: module.title });
 
     const total = module.questions.length;

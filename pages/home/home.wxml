@@ -55,25 +55,63 @@
     </view>
   </scroll-view>
 
-  <view class="module-list">
+  <view class="section-zone" wx:if="{{activeCategory === 'all'}}">
+    <view class="section-card card" wx:for="{{sectionedModules}}" wx:key="key">
+      <view class="section-head">
+        <view class="section-label">{{item.label}}</view>
+        <view class="section-meta">
+          <text>{{item.count}} 模块</text>
+          <text wx:if="{{item.adultCount}}">{{item.adultCount}} 个 18+</text>
+        </view>
+      </view>
+
+      <view class="module-list">
+        <view class="module-card card accent-{{item.accent}}" wx:for="{{item.modules}}" wx:key="id">
+          <view class="module-head">
+            <view>
+              <view class="module-sub">{{item.subtitle}} · {{item.categoryLabel}}</view>
+              <view class="module-title">{{item.title}}</view>
+            </view>
+            <view class="badge-stack">
+              <view class="badge">{{item.badge}}</view>
+              <view class="adult-badge" wx:if="{{item.adultOnly}}">18+</view>
+            </view>
+          </view>
+          <view class="module-desc">{{item.description}}</view>
+          <view class="meta-row">
+            <text>{{item.questionCount}} 题</text>
+            <text>约 {{item.estimatedMinutes}} 分钟</text>
+            <text wx:if="{{item.adultOnly}}">成人主题</text>
+          </view>
+          <button class="btn-light" bindtap="openModule" data-id="{{item.id}}">进入测评</button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="module-list" wx:else>
     <view class="module-card card accent-{{item.accent}}" wx:for="{{filteredModules}}" wx:key="id">
       <view class="module-head">
         <view>
           <view class="module-sub">{{item.subtitle}} · {{item.categoryLabel}}</view>
           <view class="module-title">{{item.title}}</view>
         </view>
-        <view class="badge">{{item.badge}}</view>
+        <view class="badge-stack">
+          <view class="badge">{{item.badge}}</view>
+          <view class="adult-badge" wx:if="{{item.adultOnly}}">18+</view>
+        </view>
       </view>
       <view class="module-desc">{{item.description}}</view>
       <view class="meta-row">
         <text>{{item.questionCount}} 题</text>
         <text>约 {{item.estimatedMinutes}} 分钟</text>
+        <text wx:if="{{item.adultOnly}}">成人主题</text>
       </view>
       <button class="btn-light" bindtap="openModule" data-id="{{item.id}}">进入测评</button>
     </view>
   </view>
 
-  <view class="empty card" wx:if="{{!filteredModules.length}}">
+  <view class="empty card" wx:if="{{activeCategory !== 'all' && !filteredModules.length}}">
     <view class="empty-title">当前分类暂无模块</view>
     <view class="empty-desc">切换上方分类查看其它测试内容。</view>
   </view>

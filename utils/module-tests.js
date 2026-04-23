@@ -1040,6 +1040,418 @@ const rawModules = [
     }
   },
   {
+    id: 'milu_intimacy_pref',
+    type: 'generic',
+    title: '麋鹿性偏好人格测试',
+    subtitle: '亲密偏好',
+    description: '参考网上麋鹿测试的题量分层与维度框架，二创为成人关系场景题。仅用于 18+ 用户自我观察。',
+    badge: '18+',
+    estimatedMinutes: 6,
+    accent: 'purple',
+    categoryKey: 'adult',
+    categoryLabel: '成人关系',
+    adultOnly: true,
+    dimensions: [
+      { key: 'bond', label: '情感联结' },
+      { key: 'explore', label: '探索开放' },
+      { key: 'boundary', label: '边界主导' },
+      { key: 'safety', label: '安全稳定' },
+      { key: 'expression', label: '表达主动' }
+    ],
+    questions: [
+      {
+        q: '在亲密关系中你最在意什么？',
+        options: [
+          { text: '情绪被理解与接住', scores: { bond: 2 } },
+          { text: '保持新鲜感与变化', scores: { explore: 2 } },
+          { text: '边界清晰互相尊重', scores: { boundary: 2 } }
+        ]
+      },
+      {
+        q: '你如何处理亲密需求差异？',
+        options: [
+          { text: '先坦诚沟通再协商', scores: { expression: 2 } },
+          { text: '先观察对方节奏再调整', scores: { safety: 2 } },
+          { text: '优先确认双方底线', scores: { boundary: 2 } }
+        ]
+      },
+      {
+        q: '你更喜欢哪种亲密互动节奏？',
+        options: [
+          { text: '慢慢建立，重质量', scores: { safety: 2 } },
+          { text: '有探索、有变化', scores: { explore: 2 } },
+          { text: '看彼此状态灵活调整', scores: { bond: 1, explore: 1 } }
+        ]
+      },
+      {
+        q: '当你感到不适时通常会？',
+        options: [
+          { text: '直接表达并说明原因', scores: { expression: 2 } },
+          { text: '先停下来回到安全区', scores: { safety: 2 } },
+          { text: '先内部消化，之后再谈', scores: { boundary: 1, bond: 1 } }
+        ]
+      },
+      {
+        q: '在关系里你更像哪种角色？',
+        options: [
+          { text: '连接者，强调情绪共振', scores: { bond: 2 } },
+          { text: '引导者，主动提出想法', scores: { expression: 2 } },
+          { text: '守门员，确保规则稳定', scores: { boundary: 2 } }
+        ]
+      },
+      {
+        q: '你对“尝试新方式”的态度是？',
+        options: [
+          { text: '愿意尝试，但要充分沟通', scores: { explore: 1, safety: 1 } },
+          { text: '谨慎，优先维持熟悉感', scores: { safety: 2 } },
+          { text: '开放，喜欢渐进探索', scores: { explore: 2 } }
+        ]
+      },
+      {
+        q: '你最认可的关系原则是？',
+        options: [
+          { text: '真实表达，不猜心', scores: { expression: 2 } },
+          { text: '稳定长期，互相托底', scores: { safety: 2 } },
+          { text: '平等协商，边界清楚', scores: { boundary: 2 } }
+        ]
+      },
+      {
+        q: '面对误解，你更常见做法是？',
+        options: [
+          { text: '先共情，再还原事实', scores: { bond: 2 } },
+          { text: '先澄清边界与责任', scores: { boundary: 2 } },
+          { text: '快速直说，避免拖延', scores: { expression: 2 } }
+        ]
+      },
+      {
+        q: '你理想中的亲密感来源于？',
+        options: [
+          { text: '稳定信任与一致感', scores: { safety: 2 } },
+          { text: '共同探索与好奇心', scores: { explore: 2 } },
+          { text: '深度沟通与被看见', scores: { bond: 2 } }
+        ]
+      },
+      {
+        q: '当关系进入平淡期时，你会？',
+        options: [
+          { text: '安排仪式感重建连接', scores: { bond: 2 } },
+          { text: '设计新体验打破惯性', scores: { explore: 2 } },
+          { text: '回顾规则与节奏是否匹配', scores: { boundary: 1, safety: 1 } }
+        ]
+      },
+      {
+        q: '你对“主动提出需求”怎么看？',
+        options: [
+          { text: '必须主动，不然容易错位', scores: { expression: 2 } },
+          { text: '可以提，但要顾及时机', scores: { safety: 1, expression: 1 } },
+          { text: '更偏好以行动暗示', scores: { bond: 1, boundary: 1 } }
+        ]
+      },
+      {
+        q: '你在亲密关系里最怕什么？',
+        options: [
+          { text: '被忽视或情绪断联', scores: { bond: 2 } },
+          { text: '失去自由与边界', scores: { boundary: 2 } },
+          { text: '长期无变化、无新鲜感', scores: { explore: 2 } }
+        ]
+      },
+      {
+        q: '关系遇到分歧时，你更在意？',
+        options: [
+          { text: '是否仍然尊重彼此', scores: { boundary: 2 } },
+          { text: '是否能继续坦诚表达', scores: { expression: 2 } },
+          { text: '是否还能保持安全感', scores: { safety: 2 } }
+        ]
+      },
+      {
+        q: '你如何判断关系在变好？',
+        options: [
+          { text: '争执后更懂彼此', scores: { bond: 2 } },
+          { text: '愿意一起尝试新阶段', scores: { explore: 2 } },
+          { text: '边界更清楚且更稳定', scores: { boundary: 1, safety: 1 } }
+        ]
+      },
+      {
+        q: '你更习惯通过什么建立亲密？',
+        options: [
+          { text: '高质量聊天', scores: { bond: 2 } },
+          { text: '共同体验和行动', scores: { explore: 2 } },
+          { text: '规则与承诺落地', scores: { safety: 2 } }
+        ]
+      },
+      {
+        q: '你对“边界”最真实的态度是？',
+        options: [
+          { text: '明确边界让关系更长久', scores: { boundary: 2 } },
+          { text: '边界可谈，可随阶段变化', scores: { explore: 1, boundary: 1 } },
+          { text: '边界之外，更看重感觉流动', scores: { bond: 1, expression: 1 } }
+        ]
+      },
+      {
+        q: '当你想靠近对方时，会更倾向？',
+        options: [
+          { text: '先确认对方状态', scores: { safety: 2 } },
+          { text: '直接表达“我想靠近你”', scores: { expression: 2 } },
+          { text: '先做些温和铺垫', scores: { bond: 2 } }
+        ]
+      },
+      {
+        q: '你如何看待“亲密中的不确定”？',
+        options: [
+          { text: '可以接受，但要有沟通', scores: { explore: 1, expression: 1 } },
+          { text: '尽量减少，保持可预测', scores: { safety: 2 } },
+          { text: '关键是边界别模糊', scores: { boundary: 2 } }
+        ]
+      },
+      {
+        q: '如果关系出现冷场，你会先做？',
+        options: [
+          { text: '提出话题，主动修复', scores: { expression: 2 } },
+          { text: '先给空间，等情绪降温', scores: { safety: 2 } },
+          { text: '回顾是否忽略了连接感', scores: { bond: 2 } }
+        ]
+      },
+      {
+        q: '你最需要伴侣提供的是？',
+        options: [
+          { text: '情绪上的在场与回应', scores: { bond: 2 } },
+          { text: '对探索尝试的支持', scores: { explore: 2 } },
+          { text: '对边界与承诺的尊重', scores: { boundary: 1, safety: 1 } }
+        ]
+      }
+    ],
+    resultProfiles: {
+      bond: {
+        title: '共鸣联结型',
+        desc: '你更重视情绪连接和被理解感，亲密体验质量来自深层共鸣。',
+        tips: ['在共情之外，补充可执行表达，减少期待落差。', '定期做关系复盘，避免把需求长期压在心里。'],
+        cityVibe: ['关系温和', '生活氛围感强']
+      },
+      explore: {
+        title: '探索开放型',
+        desc: '你对新体验和变化更开放，适合在安全前提下持续探索。',
+        tips: ['每次尝试前先定义边界和停点。', '探索后做复盘，沉淀双方有效经验。'],
+        cityVibe: ['创意表达活跃', '新鲜机会多']
+      },
+      boundary: {
+        title: '边界主导型',
+        desc: '你重视尊重与规则，关系稳定度来自边界清晰和协商一致。',
+        tips: ['边界表达尽量具体化，避免抽象词。', '必要时把“不可接受项”写成双向清单。'],
+        cityVibe: ['秩序明确', '节奏可控']
+      },
+      safety: {
+        title: '安全稳定型',
+        desc: '你更看重可预测和长期托底，稳定感是亲密关系的底层条件。',
+        tips: ['稳定不等于停滞，定期引入小变化。', '把安心需求转成对方可理解的行为语言。'],
+        cityVibe: ['生活稳定', '长期感强']
+      },
+      expression: {
+        title: '表达主动型',
+        desc: '你倾向直接表达需求和感受，能有效减少误解与猜测成本。',
+        tips: ['先讲感受再讲要求，沟通更易被接纳。', '高压时先降速，再做关键表达。'],
+        cityVibe: ['沟通直率', '协作反馈快']
+      }
+    }
+  },
+  {
+    id: 'sri_repression_index',
+    type: 'generic',
+    title: '性压抑指数测试',
+    subtitle: 'SRI 评估',
+    description: '参考网上 SRI 维度设定与双控制模型思路，二创为 18+ 自我观察题，不用于临床诊断。',
+    badge: '18+',
+    estimatedMinutes: 6,
+    accent: 'orange',
+    categoryKey: 'adult',
+    categoryLabel: '成人关系',
+    adultOnly: true,
+    dimensions: [
+      { key: 'inhibition', label: '抑制防御' },
+      { key: 'guilt', label: '内疚压力' },
+      { key: 'anxiety', label: '焦虑回避' },
+      { key: 'norms', label: '规范压力' },
+      { key: 'release', label: '舒展表达' }
+    ],
+    questions: [
+      {
+        q: '谈到亲密话题时你通常？',
+        options: [
+          { text: '容易紧张，想尽快结束', scores: { inhibition: 2 } },
+          { text: '担心被评价，不太敢展开', scores: { anxiety: 2 } },
+          { text: '能比较自然地交流', scores: { release: 2 } }
+        ]
+      },
+      {
+        q: '表达亲密需求时你更常见？',
+        options: [
+          { text: '会有明显羞耻或内疚', scores: { guilt: 2 } },
+          { text: '担心破坏关系而回避', scores: { anxiety: 2 } },
+          { text: '愿意沟通并协商边界', scores: { release: 2 } }
+        ]
+      },
+      {
+        q: '你对“社会眼光”的敏感度？',
+        options: [
+          { text: '非常在意，常影响表达', scores: { norms: 2 } },
+          { text: '有影响，但可自我调节', scores: { norms: 1, inhibition: 1 } },
+          { text: '主要按自身价值判断', scores: { release: 2 } }
+        ]
+      },
+      {
+        q: '当产生亲密想法时你会？',
+        options: [
+          { text: '立刻压下去，避免多想', scores: { inhibition: 2 } },
+          { text: '想了会自责或不安', scores: { guilt: 2 } },
+          { text: '先接纳，再判断是否合适', scores: { release: 2 } }
+        ]
+      },
+      {
+        q: '关系里出现需求差异时你倾向？',
+        options: [
+          { text: '回避讨论，先拖着', scores: { anxiety: 2 } },
+          { text: '压抑自己，尽量配合', scores: { inhibition: 2 } },
+          { text: '坦诚沟通并设共同规则', scores: { release: 2 } }
+        ]
+      },
+      {
+        q: '你是否容易因为亲密议题否定自己？',
+        options: [
+          { text: '经常会，觉得自己有问题', scores: { guilt: 2 } },
+          { text: '偶尔会，主要受外界影响', scores: { norms: 1, guilt: 1 } },
+          { text: '较少，会做现实校准', scores: { release: 2 } }
+        ]
+      },
+      {
+        q: '你对“主动表达”的体验是？',
+        options: [
+          { text: '很难，会明显卡住', scores: { inhibition: 2 } },
+          { text: '能说一点，但不够完整', scores: { anxiety: 2 } },
+          { text: '逐步练习后可以做到', scores: { release: 2 } }
+        ]
+      },
+      {
+        q: '当关系进入冷淡期，你会？',
+        options: [
+          { text: '更压抑自己，减少提需求', scores: { inhibition: 2 } },
+          { text: '担心被拒，选择沉默', scores: { anxiety: 2 } },
+          { text: '主动发起沟通与修复', scores: { release: 2 } }
+        ]
+      },
+      {
+        q: '你内心常见的阻力更像？',
+        options: [
+          { text: '“这样不应该，会羞耻”', scores: { guilt: 2 } },
+          { text: '“别人会不会觉得不对”', scores: { norms: 2 } },
+          { text: '“先理解自己，再决定行动”', scores: { release: 2 } }
+        ]
+      },
+      {
+        q: '你是否会用忙碌掩盖亲密议题？',
+        options: [
+          { text: '经常如此，避免面对', scores: { anxiety: 2 } },
+          { text: '偶尔会，但会回头处理', scores: { anxiety: 1, inhibition: 1 } },
+          { text: '较少，倾向正面处理', scores: { release: 2 } }
+        ]
+      },
+      {
+        q: '你对自我接纳的状态更接近？',
+        options: [
+          { text: '接纳感低，常自我批评', scores: { guilt: 2 } },
+          { text: '接纳感波动，受环境影响', scores: { norms: 1, anxiety: 1 } },
+          { text: '接纳感较稳，能理性评估', scores: { release: 2 } }
+        ]
+      },
+      {
+        q: '当你感到尴尬时，你会优先？',
+        options: [
+          { text: '立即撤退，不再深入', scores: { anxiety: 2 } },
+          { text: '沉默并转移话题', scores: { inhibition: 2 } },
+          { text: '标注尴尬并继续沟通', scores: { release: 2 } }
+        ]
+      },
+      {
+        q: '你对“规则和道德”的感受是？',
+        options: [
+          { text: '常觉得自己达不到标准', scores: { guilt: 2 } },
+          { text: '很受外界规范影响', scores: { norms: 2 } },
+          { text: '尊重规则也保留个体判断', scores: { release: 2 } }
+        ]
+      },
+      {
+        q: '你是否会因担心后果而长期压抑需求？',
+        options: [
+          { text: '是，压抑是常态', scores: { inhibition: 2 } },
+          { text: '有时会，尤其关系紧张时', scores: { anxiety: 2 } },
+          { text: '较少，会先沟通预案', scores: { release: 2 } }
+        ]
+      },
+      {
+        q: '你对身体与情绪信号的感知？',
+        options: [
+          { text: '经常忽视或否认', scores: { inhibition: 2 } },
+          { text: '能感知但会内耗', scores: { anxiety: 1, guilt: 1 } },
+          { text: '能识别并进行调节', scores: { release: 2 } }
+        ]
+      },
+      {
+        q: '当关系冲突出现时你更可能？',
+        options: [
+          { text: '把需求全部收回去', scores: { inhibition: 2 } },
+          { text: '担心被否定而焦虑', scores: { anxiety: 2 } },
+          { text: '先修复关系，再谈需求', scores: { release: 2 } }
+        ]
+      },
+      {
+        q: '你是否会把亲密话题视为“危险区”？',
+        options: [
+          { text: '是，通常会强烈回避', scores: { anxiety: 2 } },
+          { text: '部分是，看情境决定', scores: { norms: 1, inhibition: 1 } },
+          { text: '不是，属于可沟通议题', scores: { release: 2 } }
+        ]
+      },
+      {
+        q: '你当前最真实的状态更像？',
+        options: [
+          { text: '防御多、表达少', scores: { inhibition: 2 } },
+          { text: '顾虑多、内耗高', scores: { guilt: 1, anxiety: 1 } },
+          { text: '逐步舒展、可表达', scores: { release: 2 } }
+        ]
+      }
+    ],
+    resultProfiles: {
+      inhibition: {
+        title: '防御压抑型',
+        desc: '你更容易通过压低需求来换取表面稳定，长期可能累积内耗。',
+        tips: ['从低风险情境练习“小剂量表达”。', '先写下需求，再选择合适时机沟通。'],
+        cityVibe: ['节奏稳定', '低刺激环境']
+      },
+      guilt: {
+        title: '内疚负担型',
+        desc: '你容易把需求道德化并自我责备，建议增强自我接纳与现实校准。',
+        tips: ['区分“价值判断”和“事实需求”。', '对自责语句做反证练习，降低负性循环。'],
+        cityVibe: ['支持性社群', '包容氛围']
+      },
+      anxiety: {
+        title: '焦虑回避型',
+        desc: '你在高敏感情境里容易退缩回避，核心诉求是安全和可预期。',
+        tips: ['先做情绪降速，再进入沟通。', '使用固定句式表达需求，减少卡顿。'],
+        cityVibe: ['可预测节奏', '关系稳定']
+      },
+      norms: {
+        title: '规范牵引型',
+        desc: '你较受外部规则和社会评价影响，易忽略个体真实感受。',
+        tips: ['梳理“我真实认同的规则”与“外界灌输规则”。', '建立个人边界词典，强化自我定位。'],
+        cityVibe: ['秩序明确', '价值多元']
+      },
+      release: {
+        title: '舒展表达型',
+        desc: '你更能在边界内接纳需求并进行协商，是较健康的表达路径。',
+        tips: ['保持表达优势，同时关注对方节奏。', '将有效沟通经验沉淀成可复用习惯。'],
+        cityVibe: ['开放包容', '沟通友好']
+      }
+    }
+  },
+  {
     id: 'big5_lite',
     type: 'generic',
     title: 'Big Five 轻量版',

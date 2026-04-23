@@ -3,6 +3,9 @@
     <view class="module-sub">{{module.subtitle}}</view>
     <view class="module-title">{{module.title}}</view>
     <view class="module-desc">{{module.description}}</view>
+    <view class="age-note" wx:if="{{module.adultOnly}}">
+      18+ 自我观察内容 · 不用于医学或临床诊断
+    </view>
   </view>
 
   <view class="progress-container">

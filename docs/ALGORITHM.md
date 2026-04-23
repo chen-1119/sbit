@@ -31,6 +31,30 @@
    - `7~15` 中
    - `<7` 混合
 
+### 2.1 性压抑指数测试（SRI）扩展
+
+- 模块：`sri_repression_index`
+- 维度：
+  - `inhibition`（抑制防御）
+  - `guilt`（内疚压力）
+  - `anxiety`（焦虑回避）
+  - `norms`（规范压力）
+  - `release`（舒展表达）
+- 结果页额外计算：
+  - `riskAvg = (inhibition + guilt + anxiety + norms) / 4`
+  - `sriIndex = clamp(round(riskAvg * 0.75 + (100 - release) * 0.25), 0, 100)`
+- 等级：
+  - `<40` 低
+  - `40~69` 中
+  - `>=70` 高
+- 说明：该指数为自我观察指标，不等同医学或临床诊断。
+
+### 2.2 成人主题模块（18+）提示机制
+
+- 适用模块在 `module-tests.js` 里标记 `adultOnly: true`
+- 在 `module-quiz` 进入前弹窗确认
+- 在答题页与结果页显示“18+ 自我观察”提示
+
 ## 3. 深度主测城市匹配逻辑
 
 ### 3.1 用户向量

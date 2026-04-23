@@ -4,7 +4,19 @@
     <view class="profile-title">{{profile.title}}</view>
     <view class="confidence">判定清晰度：{{confidence}}</view>
     <view class="profile-desc">{{profile.desc}}</view>
+    <view class="adult-note" wx:if="{{module.adultOnly}}">18+ 自我观察内容 · 不用于医学或临床诊断</view>
     <view class="submitted-time" wx:if="{{submittedAtText}}">完成时间：{{submittedAtText}}</view>
+  </view>
+
+  <view class="card" wx:if="{{hasSRI}}">
+    <view class="section-title">压抑指数概览</view>
+    <view class="sri-row">
+      <view class="sri-index">{{sriIndex}}</view>
+      <view class="sri-info">
+        <view class="sri-level">SRI 水平：{{sriLevel}}</view>
+        <view class="sri-hint">{{sriHint}}</view>
+      </view>
+    </view>
   </view>
 
   <view class="card">

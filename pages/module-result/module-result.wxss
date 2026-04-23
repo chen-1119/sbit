@@ -35,6 +35,16 @@
   line-height: 1.68;
 }
 
+.adult-note {
+  margin-top: 10rpx;
+  display: inline-block;
+  font-size: 22rpx;
+  color: #a1442b;
+  background: rgba(232, 122, 93, 0.16);
+  border-radius: 999rpx;
+  padding: 6rpx 14rpx;
+}
+
 .submitted-time {
   margin-top: 10rpx;
   font-size: 22rpx;
@@ -46,6 +56,43 @@
   color: #2c3845;
   font-weight: 650;
   margin-bottom: 12rpx;
+}
+
+.sri-row {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+}
+
+.sri-index {
+  width: 126rpx;
+  height: 126rpx;
+  border-radius: 50%;
+  background: linear-gradient(140deg, rgba(232, 122, 93, 0.2), rgba(31, 111, 120, 0.22));
+  color: #23303d;
+  font-size: 46rpx;
+  font-weight: 780;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sri-info {
+  flex: 1;
+}
+
+.sri-level {
+  font-size: 26rpx;
+  color: #2f3b48;
+  font-weight: 650;
+}
+
+.sri-hint {
+  margin-top: 8rpx;
+  font-size: 23rpx;
+  color: #5d6976;
+  line-height: 1.64;
 }
 
 .dim-list {
