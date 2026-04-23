@@ -16,6 +16,12 @@
 4. 压力管理与恢复建议（科普框架）  
    https://newsinhealth.nih.gov/2020/10/manage-stress-build-resilience
 
+5. 麋鹿体系相关题量分层与玩法入口（用于题量设计参考，不复用原题）  
+   https://sbti.anmeisheng.com/
+
+6. 驯鹿角色问答风格（用于“动物人格场景化”题干表达参考）  
+   https://www.vam.ac.uk/mused/random/personality-quiz-which-reindeer-are-you/
+
 ## 2. 二创改写规则
 
 - 不复制任何闭源量表原题。

@@ -795,6 +795,251 @@ const rawModules = [
     }
   },
   {
+    id: 'moose_winter',
+    type: 'generic',
+    title: '麋鹿冬原性格测试',
+    subtitle: '麋鹿主题',
+    description: '参考网上麋鹿测试与驯鹿角色问答玩法，二创为 24 题场景版，观察你在压力、协作和行动节奏中的“麋鹿型人格”。',
+    badge: '麋鹿',
+    estimatedMinutes: 6,
+    accent: 'green',
+    categoryKey: 'fun',
+    categoryLabel: '麋鹿主题',
+    dimensions: [
+      { key: 'calm', label: '冷静续航' },
+      { key: 'lead', label: '开路行动' },
+      { key: 'herd', label: '群体协同' },
+      { key: 'alert', label: '风险警觉' },
+      { key: 'play', label: '轻松表达' }
+    ],
+    questions: [
+      {
+        q: '计划突然被打乱时，你第一反应更像？',
+        options: [
+          { text: '先稳住节奏，确认哪些必须保留', scores: { calm: 2 } },
+          { text: '直接重排并马上行动', scores: { lead: 2 } },
+          { text: '先拉伙伴对齐，再分工处理', scores: { herd: 2 } }
+        ]
+      },
+      {
+        q: '团队气氛变冷时你通常会？',
+        options: [
+          { text: '先观察原因，避免误判', scores: { alert: 2 } },
+          { text: '主动抛话题破冰', scores: { play: 2 } },
+          { text: '私下找关键人聊一聊', scores: { herd: 2 } }
+        ]
+      },
+      {
+        q: '面对一个模糊的新任务，你会先做？',
+        options: [
+          { text: '列出风险与未知项', scores: { alert: 2 } },
+          { text: '做最小版本先跑起来', scores: { lead: 2 } },
+          { text: '先定合作方式和角色边界', scores: { herd: 2 } }
+        ]
+      },
+      {
+        q: '高压周里你最依赖哪种恢复方式？',
+        options: [
+          { text: '安静独处，回到可控节奏', scores: { calm: 2 } },
+          { text: '做点有趣的小事放松神经', scores: { play: 2 } },
+          { text: '找熟悉的人短聊补能', scores: { herd: 2 } }
+        ]
+      },
+      {
+        q: '你更像哪种“带队方式”？',
+        options: [
+          { text: '前面开路，边走边修正', scores: { lead: 2 } },
+          { text: '先稳住队形再推进', scores: { calm: 2 } },
+          { text: '关注每个人状态，保证一起到达', scores: { herd: 2 } }
+        ]
+      },
+      {
+        q: '在公开表达里，你更习惯？',
+        options: [
+          { text: '逻辑清晰、情绪平稳', scores: { calm: 2 } },
+          { text: '直接有劲，先讲结论', scores: { lead: 2 } },
+          { text: '有画面感和幽默感', scores: { play: 2 } }
+        ]
+      },
+      {
+        q: '你对“可能出问题”的信号敏感吗？',
+        options: [
+          { text: '非常敏感，会提前做预案', scores: { alert: 2 } },
+          { text: '有风险也会先推一版', scores: { lead: 2 } },
+          { text: '靠团队互相提醒来兜底', scores: { herd: 2 } }
+        ]
+      },
+      {
+        q: '遇到进度拖延时你会？',
+        options: [
+          { text: '拆成更小动作，快速推进', scores: { lead: 2 } },
+          { text: '先查瓶颈再定优先级', scores: { alert: 2 } },
+          { text: '把压力转成轻松协作节奏', scores: { play: 2 } }
+        ]
+      },
+      {
+        q: '你在关系里的默认位置更像？',
+        options: [
+          { text: '稳定器，大家急我不急', scores: { calm: 2 } },
+          { text: '发动机，持续推着往前', scores: { lead: 2 } },
+          { text: '连接器，擅长把人串起来', scores: { herd: 2 } }
+        ]
+      },
+      {
+        q: '当意见冲突很大时，你更倾向？',
+        options: [
+          { text: '先降噪，让讨论回到问题', scores: { calm: 2 } },
+          { text: '明确目标，先做再说', scores: { lead: 2 } },
+          { text: '先保关系，再推动结论', scores: { herd: 2 } }
+        ]
+      },
+      {
+        q: '如果必须临场决策，你最重视？',
+        options: [
+          { text: '可回撤空间是否足够', scores: { alert: 2 } },
+          { text: '窗口期是否正在关闭', scores: { lead: 2 } },
+          { text: '团队是否能跟上节奏', scores: { herd: 2 } }
+        ]
+      },
+      {
+        q: '休息日你更喜欢哪种状态？',
+        options: [
+          { text: '低刺激、慢节奏恢复', scores: { calm: 2 } },
+          { text: '新鲜活动，轻松有趣', scores: { play: 2 } },
+          { text: '和熟人小范围聚一聚', scores: { herd: 2 } }
+        ]
+      },
+      {
+        q: '你对突发变化的耐受度如何？',
+        options: [
+          { text: '中等，先稳住再调整', scores: { calm: 2 } },
+          { text: '高，变化越多越兴奋', scores: { lead: 2 } },
+          { text: '看团队是否同步得上', scores: { herd: 2, alert: 1 } }
+        ]
+      },
+      {
+        q: '你在项目里最常补位哪类工作？',
+        options: [
+          { text: '风险排查和提前预警', scores: { alert: 2 } },
+          { text: '卡点突破和快速推进', scores: { lead: 2 } },
+          { text: '沟通协调和节奏维护', scores: { herd: 2 } }
+        ]
+      },
+      {
+        q: '当别人焦虑时，你常见做法是？',
+        options: [
+          { text: '先帮对方回到可控范围', scores: { calm: 2 } },
+          { text: '给一个能立刻执行的动作', scores: { lead: 2 } },
+          { text: '用轻松表达先缓和情绪', scores: { play: 2 } }
+        ]
+      },
+      {
+        q: '你更容易被哪种事触发压力？',
+        options: [
+          { text: '长期失控、看不到边界', scores: { calm: 1, alert: 1 } },
+          { text: '节奏太慢、迟迟不决', scores: { lead: 2 } },
+          { text: '关系摩擦、缺少协作', scores: { herd: 2 } }
+        ]
+      },
+      {
+        q: '你做选择时最像哪种心法？',
+        options: [
+          { text: '稳住心态，再看路径', scores: { calm: 2 } },
+          { text: '先迈出去，再微调', scores: { lead: 2 } },
+          { text: '先看人与配合，再定方案', scores: { herd: 2 } }
+        ]
+      },
+      {
+        q: '你如何处理自己的“过度紧张”？',
+        options: [
+          { text: '把未知拆小，逐步清空', scores: { alert: 2 } },
+          { text: '立刻做事，打断内耗', scores: { lead: 2 } },
+          { text: '用轻松活动转移压力', scores: { play: 2 } }
+        ]
+      },
+      {
+        q: '你更偏好哪类团队文化？',
+        options: [
+          { text: '稳定、清晰、不过载', scores: { calm: 2 } },
+          { text: '快节奏、敢试错', scores: { lead: 2 } },
+          { text: '互相支持、信任感高', scores: { herd: 2 } }
+        ]
+      },
+      {
+        q: '面对高标准反馈时你通常？',
+        options: [
+          { text: '先接住情绪，再拆改进点', scores: { calm: 2 } },
+          { text: '直接改，快速交付下一版', scores: { lead: 2 } },
+          { text: '主动沟通预期并拉齐理解', scores: { herd: 2 } }
+        ]
+      },
+      {
+        q: '你对“好状态”的定义更接近？',
+        options: [
+          { text: '稳、清醒、持续可输出', scores: { calm: 2 } },
+          { text: '有火力、有推进感', scores: { lead: 2 } },
+          { text: '有连接、有轻松感', scores: { herd: 1, play: 1 } }
+        ]
+      },
+      {
+        q: '当事情太复杂时你会先？',
+        options: [
+          { text: '先画风险地图', scores: { alert: 2 } },
+          { text: '先做关键路径', scores: { lead: 2 } },
+          { text: '先做沟通地图', scores: { herd: 2 } }
+        ]
+      },
+      {
+        q: '你更容易让别人记住你的哪一点？',
+        options: [
+          { text: '情绪稳定，关键时刻不乱', scores: { calm: 2 } },
+          { text: '有冲劲，能把事推起来', scores: { lead: 2 } },
+          { text: '有趣且有温度，合作舒服', scores: { play: 2 } }
+        ]
+      },
+      {
+        q: '如果把你比作一只“麋鹿”，你更像？',
+        options: [
+          { text: '稳步穿越风雪的长跑者', scores: { calm: 2 } },
+          { text: '先探路再带队前行的开路者', scores: { lead: 2 } },
+          { text: '守着群体节奏的连接者', scores: { herd: 2 } }
+        ]
+      }
+    ],
+    resultProfiles: {
+      calm: {
+        title: '雪原定盘型麋鹿',
+        desc: '你在波动环境中更能保持稳定，擅长把系统拉回可控节奏。',
+        tips: ['在稳定优势上叠加小步试错，提升机会捕捉能力。', '用“优先级 + 能量预算”避免长期透支。'],
+        cityVibe: ['节奏稳定', '生活可控']
+      },
+      lead: {
+        title: '前锋开路型麋鹿',
+        desc: '你擅长在不确定中先跑起来，把模糊局面变成可推进路径。',
+        tips: ['重要决策前补一轮风险检查，减少返工。', '推进同时设置停损线，保持可回撤。'],
+        cityVibe: ['变化机会多', '执行节奏快']
+      },
+      herd: {
+        title: '群迁协同型麋鹿',
+        desc: '你重视团队节奏和协作关系，能让多人长期稳定共进。',
+        tips: ['在维护关系时也要明确边界和期限。', '把隐性协调经验沉淀为可复用模板。'],
+        cityVibe: ['社群友好', '协作密度高']
+      },
+      alert: {
+        title: '警觉守望型麋鹿',
+        desc: '你对风险信号敏感，善于提前预警和建立安全缓冲。',
+        tips: ['避免过度预警导致迟滞，给决策设置时限。', '把风险语言转成行动清单，提升执行感。'],
+        cityVibe: ['秩序明确', '风险可控']
+      },
+      play: {
+        title: '暖场灵动型麋鹿',
+        desc: '你能用轻松表达化解紧绷气氛，让团队更愿意持续协作。',
+        tips: ['轻松表达后要补上明确结论。', '在高压场景保留一点幽默，但不模糊边界。'],
+        cityVibe: ['氛围松弛', '创意表达活跃']
+      }
+    }
+  },
+  {
     id: 'big5_lite',
     type: 'generic',
     title: 'Big Five 轻量版',
