@@ -1,0 +1,173 @@
+﻿<view class="container">
+  <view class="result">
+    <view class="card result-card">
+      <view class="result-emoji" bindtap="previewImage" data-url="{{result.image}}">
+        <image mode="aspectFit" src="{{result.image}}" class="result-image"></image>
+      </view>
+
+      <view class="result-type">{{result.code}}</view>
+      <view class="result-name">{{result.name}}</view>
+      <view class="result-match">SBTI 匹配度 {{matchScore}}%</view>
+      <view class="result-desc">{{result.desc}}</view>
+      <view class="rarity-tag">稀有度：{{result.rarity}}</view>
+    </view>
+
+    <view class="card mbti-card">
+      <view class="section-title">MBTI 补充画像</view>
+      <view class="mbti-type">{{mbtiResult.type}}</view>
+      <view class="mbti-summary">{{mbtiResult.summary}}</view>
+
+      <view class="clarity-row">
+        <text class="clarity-label">判定清晰度</text>
+        <text class="clarity-value">{{mbtiResult.confidenceLevel}}（{{mbtiResult.confidenceScore}}）</text>
+      </view>
+
+      <view class="balanced-box" wx:if="{{mbtiResult.balancedAxes.length}}">
+        <view class="balanced-title">临界轴提示</view>
+        <view class="balanced-list">
+          <text class="balanced-item" wx:for="{{mbtiResult.balancedAxes}}" wx:key="*this">{{item}}</text>
+        </view>
+      </view>
+
+      <view class="axis-list">
+        <view class="axis-item" wx:for="{{mbtiResult.axes}}" wx:key="label">
+          <view class="axis-head">
+            <text class="axis-label">{{item.label}}（{{item.left}} / {{item.right}}）</text>
+            <text class="axis-score">{{item.leftPercent}}% : {{item.rightPercent}}%</text>
+          </view>
+          <view class="axis-track">
+            <view class="axis-fill" style="width: {{item.leftPercent}}%;"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="card lifestyle-card">
+      <view class="section-title">生活方式画像</view>
+      <view class="vector-tags">
+        <view class="vector-tag" wx:for="{{vectorTags}}" wx:key="*this">{{item}}</view>
+      </view>
+      <view class="tips-title">行动建议</view>
+      <view class="tips-list">
+        <view class="tip-item" wx:for="{{lifestyleTips}}" wx:key="*this">{{index + 1}}. {{item}}</view>
+      </view>
+    </view>
+
+    <view class="card city-card">
+      <view class="section-title">人格匹配城市</view>
+      <view class="career-title">按职业偏好筛选</view>
+      <view class="career-list">
+        <view
+          wx:for="{{careerOptions}}"
+          wx:key="key"
+          class="career-chip {{selectedCareerKey === item.key ? 'active' : ''}}"
+          bindtap="onCareerChange"
+          data-key="{{item.key}}"
+        >
+          {{item.label}}
+        </view>
+      </view>
+      <view class="career-hint">{{careerHint}}</view>
+
+      <view class="weight-title">城市权重调节</view>
+      <view class="preset-list">
+        <view
+          wx:for="{{weightPresets}}"
+          wx:key="key"
+          class="preset-chip {{selectedPresetKey === item.key ? 'active' : ''}}"
+          bindtap="onPresetChange"
+          data-key="{{item.key}}"
+        >
+          {{item.label}}
+        </view>
+      </view>
+      <view class="weight-hint">{{weightHint}}</view>
+
+      <view class="weight-rows">
+        <view class="weight-row" wx:for="{{axisWeightCards}}" wx:key="key">
+          <text class="weight-label">{{item.label}}</text>
+          <view class="weight-stepper">
+            <button class="step-btn" bindtap="onWeightAdjust" data-key="{{item.key}}" data-delta="-1">-</button>
+            <text class="step-value">{{item.value}}</text>
+            <button class="step-btn" bindtap="onWeightAdjust" data-key="{{item.key}}" data-delta="1">+</button>
+          </view>
+        </view>
+      </view>
+      <button class="btn-reset-pref" bindtap="resetCityPreference">恢复默认偏好</button>
+
+      <view class="city-note">{{methodNote}}</view>
+
+      <view class="city-list">
+        <view class="city-item" wx:for="{{cityMatches}}" wx:key="name">
+          <view class="city-top">
+            <text class="city-name">{{index + 1}}. {{item.name}}</text>
+            <text class="city-score">{{item.score}}%</text>
+          </view>
+          <view class="city-reason">{{item.reason}}</view>
+
+          <view class="fit-list">
+            <view class="fit-item" wx:for="{{item.axisFits}}" wx:key="label">
+              <text class="fit-label">{{item.label}}</text>
+              <view class="fit-track">
+                <view class="fit-fill" style="width: {{item.fit}}%;"></view>
+              </view>
+            </view>
+          </view>
+
+          <view class="city-tags">
+            <text class="city-tag" wx:for="{{item.tags}}" wx:key="*this">{{item}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="card share-card">
+      <view class="section-title">结果分享卡</view>
+      <view class="share-note">{{resultBrief}}</view>
+
+      <view class="share-buttons">
+        <button class="btn-generate" bindtap="generatePoster" loading="{{generatingPoster}}">生成分享图</button>
+        <button class="btn-save" bindtap="savePoster">保存到相册</button>
+      </view>
+
+      <button class="btn-copy" bindtap="copySummary">复制文字版结果</button>
+
+      <image wx:if="{{posterPath}}" src="{{posterPath}}" mode="widthFix" class="poster-preview"></image>
+    </view>
+
+    <view class="card chart-card">
+      <view class="section-title">SBTI 十五维度雷达图</view>
+      <canvas canvas-id="radarChart" class="chart"></canvas>
+    </view>
+
+    <view class="card dim-card" wx:for="{{dimensionDetails}}" wx:key="groupName">
+      <view class="dim-group-name">{{item.groupName}}</view>
+      <view class="dim-list">
+        <view class="dim-item" wx:for="{{item.dims}}" wx:key="name">
+          <view class="dim-header">
+            <text class="dim-name">{{item.nameCN}}</text>
+            <text class="dim-level {{item.level === 'H' ? 'high' : item.level === 'M' ? 'mid' : 'low'}}">{{item.level === 'H' ? '高' : item.level === 'M' ? '中' : '低'}}</text>
+          </view>
+          <view class="dim-desc">{{item.desc}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="copyright">
+      <text>{{sourceNote}}</text>
+    </view>
+
+    <button class="btn-restart" bindtap="restartTest">再测一次</button>
+
+    <view class="share-tip">
+      <view class="share-tip-title">分享你的测试卡</view>
+      <view class="share-tip-desc">截图、复制文案或生成海报后分享给朋友，一起比较“人格 x 城市”差异</view>
+    </view>
+
+    <view class="disclaimer">
+      <text>⚠️ 本测试为娱乐向二创内容，不用于医学、心理诊断或重要人生决策。</text>
+    </view>
+
+    <canvas canvas-id="sharePoster" class="poster-canvas"></canvas>
+  </view>
+</view>

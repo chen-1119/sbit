@@ -1,0 +1,92 @@
+﻿<view class="container">
+  <view class="welcome-shell" wx:if="{{showPage === 'welcome'}}">
+    <view class="hero-card">
+      <view class="hero-badge">SBIT Personality Lab</view>
+      <view class="welcome-title">SBIT 人格实验室</view>
+      <view class="welcome-subtitle">SBTI 主画像 + MBTI 补充维度 + 城市匹配建议</view>
+      <view class="welcome-desc">在保留原版趣味基因的基础上，新增 MBTI 倾向测量与城市适配推荐。全部题目为二创原创表达，结果用于娱乐和自我观察。</view>
+
+      <view class="tag-list">
+        <view class="tag" wx:for="{{welcomeTags}}" wx:key="*this">{{item}}</view>
+      </view>
+
+      <view class="meta-grid">
+        <view class="meta-item">
+          <text class="meta-value">{{totalQuestionCount}}</text>
+          <text class="meta-label">总题量</text>
+        </view>
+        <view class="meta-item">
+          <text class="meta-value">{{sbtiQuestionCount}}</text>
+          <text class="meta-label">SBTI 题</text>
+        </view>
+        <view class="meta-item">
+          <text class="meta-value">{{mbtiQuestionCount}}</text>
+          <text class="meta-label">MBTI 题</text>
+        </view>
+      </view>
+
+      <button class="btn-start" bindtap="startTest">开始测试</button>
+
+      <view class="resume-box" wx:if="{{hasSavedProgress}}">
+        <view class="resume-text">{{savedProgressText}}</view>
+        <view class="resume-actions">
+          <button class="btn-resume" bindtap="resumeTest">继续上次</button>
+          <button class="btn-clear" bindtap="clearSavedProgress">清除进度</button>
+        </view>
+      </view>
+    </view>
+
+    <view class="flow-card">
+      <view class="flow-title">测试流程</view>
+      <view class="flow-list">
+        <view class="flow-item" wx:for="{{flowSteps}}" wx:key="*this">
+          <view class="flow-dot"></view>
+          <view class="flow-text">{{index + 1}}. {{item}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="test-shell" wx:if="{{showPage === 'test'}}">
+    <view class="progress-container">
+      <view class="progress-text">
+        <text>第 {{currentQ + 1}} 题 / 共 {{totalQuestionCount}} 题</text>
+        <text>{{progressPercent}}%</text>
+      </view>
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{progressPercent}}%"></view>
+      </view>
+      <view class="progress-meta">{{estimatedText}}</view>
+    </view>
+
+    <view class="card">
+      <view class="question-head">
+        <view class="question-stage">{{currentQ + 1 <= sbtiQuestionCount ? 'SBTI 阶段' : 'MBTI 阶段'}}</view>
+        <view class="question-section">{{questions[currentQ].section}}</view>
+      </view>
+
+      <view class="question-text">{{questions[currentQ].q}}</view>
+
+      <view class="options">
+        <view
+          wx:for="{{questions[currentQ].options}}"
+          wx:for-index="idx"
+          wx:key="idx"
+          class="option {{selectedIdx === idx ? 'active' : ''}}"
+          bindtap="selectOption"
+          data-idx="{{idx}}"
+        >
+          <view class="option-letter">{{letters[idx]}}</view>
+          <view class="option-text">{{item}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="nav-buttons">
+      <button class="btn-prev" bindtap="prevQuestion" disabled="{{currentQ === 0}}">上一题</button>
+      <button class="btn-next {{selectedIdx === -1 ? 'disabled' : ''}}" bindtap="nextQuestion">{{currentQ === totalQuestionCount - 1 ? '查看结果' : '下一题'}}</button>
+    </view>
+
+    <view class="warning {{showWarning ? 'show' : ''}}">请选择一个答案再继续</view>
+  </view>
+</view>

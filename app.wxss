@@ -1,0 +1,35 @@
+﻿page {
+  --bg-soft: #f3efe6;
+  --bg-surface: #fffdf8;
+  --ink-strong: #2e2f33;
+  --ink-main: #4a4c52;
+  --ink-muted: #757b85;
+  --line-soft: #d9d2c7;
+  --brand: #1f6f78;
+  --brand-deep: #165c63;
+  --accent: #e87a5d;
+  --accent-deep: #d85f3f;
+  background:
+    radial-gradient(circle at 15% 12%, rgba(232, 122, 93, 0.16), transparent 34%),
+    radial-gradient(circle at 84% 6%, rgba(31, 111, 120, 0.2), transparent 32%),
+    linear-gradient(180deg, #faf7f0 0%, #f3efe6 100%);
+  color: var(--ink-main);
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+}
+
+.container {
+  min-height: 100vh;
+  padding: 28rpx;
+  box-sizing: border-box;
+}
+
+.card {
+  background: var(--bg-surface);
+  border: 2rpx solid rgba(217, 210, 199, 0.65);
+  border-radius: 30rpx;
+  box-shadow: 0 14rpx 40rpx rgba(28, 35, 52, 0.08);
+}
+
+button::after {
+  border: none;
+}
