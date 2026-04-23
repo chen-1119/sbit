@@ -1,4 +1,4 @@
-﻿const {
+const {
   personalities,
   dimensions,
   dimensionNames,

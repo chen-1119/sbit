@@ -1,4 +1,4 @@
-﻿.result {
+.result {
   padding-bottom: 60rpx;
   display: flex;
   flex-direction: column;

@@ -1,4 +1,4 @@
-﻿<view class="container">
+<view class="container">
   <view class="welcome-shell" wx:if="{{showPage === 'welcome'}}">
     <view class="hero-card">
       <view class="hero-badge">SBIT Personality Lab</view>

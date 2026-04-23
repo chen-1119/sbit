@@ -1,4 +1,4 @@
-﻿const {
+const {
   questions,
   sbtiQuestionCount,
   mbtiQuestionCount,

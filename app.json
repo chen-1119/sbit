@@ -1,4 +1,4 @@
-﻿{
+{
   "pages": [
     "pages/index/index",
     "pages/result/result"
@@ -8,11 +8,6 @@
     "navigationBarBackgroundColor": "#f8f4ec",
     "navigationBarTitleText": "SBIT 人格实验室",
     "navigationBarTextStyle": "black"
-  },
-  "permission": {
-    "scope.writePhotosAlbum": {
-      "desc": "用于保存测试结果分享图到相册"
-    }
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"

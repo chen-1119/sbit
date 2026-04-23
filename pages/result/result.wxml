@@ -1,4 +1,4 @@
-﻿<view class="container">
+<view class="container">
   <view class="result">
     <view class="card result-card">
       <view class="result-emoji" bindtap="previewImage" data-url="{{result.image}}">
