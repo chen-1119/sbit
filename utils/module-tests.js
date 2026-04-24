@@ -1586,9 +1586,88 @@ const rawModules = [
   }
 ];
 
+const TARGET_QUESTION_COUNTS = {
+  mbti_quick: 32,
+  mbti_workstyle: 32,
+  work_drive: 34,
+  communication_mode: 34,
+  decision_style: 34,
+  energy_reset: 32,
+  moose_winter: 36,
+  milu_intimacy_pref: 40,
+  sri_repression_index: 40,
+  big5_lite: 32
+};
+
+const SCENARIO_PREFIXES = [
+  '在高压工作周里，',
+  '在周末放松场景下，',
+  '当你和熟人长期相处时，',
+  '在陌生关系刚建立阶段，',
+  '当计划被临时打断时，',
+  '在你精力不足的一天里，',
+  '面对关键选择前，',
+  '在多人协作情境中，',
+  '当你需要快速回应时，',
+  '在关系需要修复时，',
+  '在需要长期坚持的阶段，',
+  '当你准备做出新尝试时，'
+];
+
+function cloneScores(scores) {
+  return Object.assign({}, scores || {});
+}
+
+function cloneQuestion(question) {
+  return {
+    q: question.q,
+    options: (question.options || []).map((option) => ({
+      text: option.text,
+      scores: cloneScores(option.scores)
+    }))
+  };
+}
+
+function buildExpandedQuestion(sourceQuestion, seedIndex, variantRound, baseLength) {
+  const prefix = SCENARIO_PREFIXES[seedIndex % SCENARIO_PREFIXES.length];
+  const originalIndex = (seedIndex % baseLength) + 1;
+  const cloned = cloneQuestion(sourceQuestion);
+
+  return Object.assign({}, cloned, {
+    q: `${prefix}${sourceQuestion.q}（扩展情境 ${variantRound}-${originalIndex}）`
+  });
+}
+
+function expandQuestions(questions, targetCount) {
+  const base = (questions || []).map((question) => cloneQuestion(question));
+  if (!base.length) return [];
+  if (base.length >= targetCount) return base;
+
+  const expanded = [...base];
+  const baseLength = base.length;
+  let seedIndex = 0;
+
+  while (expanded.length < targetCount) {
+    const source = base[seedIndex % baseLength];
+    const variantRound = Math.floor(seedIndex / baseLength) + 1;
+    expanded.push(buildExpandedQuestion(source, seedIndex, variantRound, baseLength));
+    seedIndex += 1;
+  }
+
+  return expanded;
+}
+
 const moduleCatalog = rawModules.map((item) => {
   if (item.type === 'generic') {
-    return Object.assign({}, item, { questionCount: item.questions.length });
+    const targetCount = TARGET_QUESTION_COUNTS[item.id] || 32;
+    const expandedQuestions = expandQuestions(item.questions, targetCount);
+    const estimatedMinutes = Math.max(Number(item.estimatedMinutes) || 0, Math.ceil(expandedQuestions.length / 6));
+
+    return Object.assign({}, item, {
+      questions: expandedQuestions,
+      questionCount: expandedQuestions.length,
+      estimatedMinutes
+    });
   }
   return item;
 });
