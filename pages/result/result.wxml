@@ -129,6 +129,7 @@
         <button class="btn-generate" bindtap="generatePoster" loading="{{generatingPoster}}">生成分享图</button>
         <button class="btn-save" bindtap="savePoster">保存到相册</button>
       </view>
+      <button class="btn-share-native" open-type="share">直接分享给朋友</button>
 
       <button class="btn-copy" bindtap="copySummary">复制文字版结果</button>
 

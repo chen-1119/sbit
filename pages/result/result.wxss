@@ -457,7 +457,8 @@
 
 .btn-generate,
 .btn-save,
-.btn-copy {
+.btn-copy,
+.btn-share-native {
   border-radius: 999rpx;
   border: none;
 }
@@ -487,6 +488,15 @@
   font-size: 24rpx;
   color: #3d4a58;
   background: rgba(90, 98, 107, 0.12);
+}
+
+.btn-share-native {
+  margin-top: 10rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  font-size: 24rpx;
+  color: #1f6f78;
+  background: rgba(31, 111, 120, 0.12);
 }
 
 .poster-preview {

@@ -51,6 +51,17 @@
   background: rgba(90, 98, 107, 0.12);
 }
 
+.btn-share {
+  margin-top: 18rpx;
+  height: 74rpx;
+  line-height: 74rpx;
+  border-radius: 999rpx;
+  border: none;
+  font-size: 24rpx;
+  color: #1f6f78;
+  background: rgba(31, 111, 120, 0.12);
+}
+
 .card {
   background: #fffdf8;
   border-radius: 26rpx;

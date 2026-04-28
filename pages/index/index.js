@@ -70,6 +70,12 @@ Page({
   },
 
   onShow() {
+    if (wx.showShareMenu) {
+      wx.showShareMenu({
+        withShareTicket: false,
+        menus: ['shareAppMessage', 'shareTimeline']
+      });
+    }
     this.refreshSavedProgressInfo();
   },
 
@@ -245,5 +251,18 @@ Page({
     if (this.data.showPage === 'test') {
       this.persistProgress(this.data.currentQ, this.data.answers);
     }
+  },
+
+  onShareAppMessage() {
+    return {
+      title: '来测测你的 SBTI 人格画像',
+      path: '/pages/index/index'
+    };
+  },
+
+  onShareTimeline() {
+    return {
+      title: 'SBTI 人格实验室：43题深度主测'
+    };
   }
 });

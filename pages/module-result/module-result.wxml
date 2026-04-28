@@ -56,6 +56,7 @@
 
   <view class="actions">
     <button class="btn-main" bindtap="retake">再测一次</button>
+    <button class="btn-light" open-type="share">分享给朋友</button>
     <button class="btn-light" bindtap="goHome">返回测试中心</button>
   </view>
 </view>

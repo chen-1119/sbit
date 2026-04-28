@@ -6,6 +6,7 @@
     <view class="tag-list">
       <view class="tag" wx:for="{{tags}}" wx:key="*this">{{item}}</view>
     </view>
+    <button class="btn-share" open-type="share">分享测试中心</button>
   </view>
 
   <view class="overview card">

@@ -74,6 +74,12 @@ Page({
 
   initModule(moduleId, module) {
     wx.setNavigationBarTitle({ title: module.title });
+    if (wx.showShareMenu) {
+      wx.showShareMenu({
+        withShareTicket: false,
+        menus: ['shareAppMessage', 'shareTimeline']
+      });
+    }
 
     const total = module.questions.length;
     const emptyAnswers = new Array(total).fill(null);
@@ -211,5 +217,21 @@ Page({
   onUnload() {
     if (!this.data.moduleId || !this.data.questions.length) return;
     this.persistProgress(this.data.currentQ, this.data.answers);
+  },
+
+  onShareAppMessage() {
+    const title = this.data.module ? this.data.module.title : 'SBTI 测试模块';
+    const moduleId = this.data.moduleId || '';
+    return {
+      title: `一起测：${title}`,
+      path: `/pages/module-quiz/module-quiz?id=${moduleId}`
+    };
+  },
+
+  onShareTimeline() {
+    const title = this.data.module ? this.data.module.title : 'SBTI 测试模块';
+    return {
+      title: `SBTI 模块测评：${title}`
+    };
   }
 });

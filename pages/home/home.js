@@ -100,6 +100,13 @@ Page({
       activeCategory,
       stats
     });
+
+    if (wx.showShareMenu) {
+      wx.showShareMenu({
+        withShareTicket: false,
+        menus: ['shareAppMessage', 'shareTimeline']
+      });
+    }
   },
 
   onCategoryChange(e) {
@@ -128,5 +135,18 @@ Page({
     wx.navigateTo({
       url: `/pages/module-quiz/module-quiz?id=${target.id}`
     });
+  },
+
+  onShareAppMessage() {
+    return {
+      title: 'SBTI 测试中心：多模块人格测评合集',
+      path: '/pages/home/home'
+    };
+  },
+
+  onShareTimeline() {
+    return {
+      title: 'SBTI 测试中心：人格 x 职业 x 城市'
+    };
   }
 });

@@ -123,6 +123,12 @@ Page({
     }
 
     wx.setNavigationBarTitle({ title: module.title + '结果' });
+    if (wx.showShareMenu) {
+      wx.showShareMenu({
+        withShareTicket: false,
+        menus: ['shareAppMessage', 'shareTimeline']
+      });
+    }
     const payload = wx.getStorageSync(RESULT_PREFIX + moduleId);
     if (!payload || !Array.isArray(payload.answers)) {
       wx.showToast({ title: '未找到测试结果', icon: 'none' });
@@ -183,9 +189,18 @@ Page({
   onShareAppMessage() {
     const moduleTitle = this.data.module ? this.data.module.title : '测试结果';
     const profileTitle = this.data.profile ? this.data.profile.title : '综合型';
+    const moduleId = this.data.module ? this.data.module.id : '';
     return {
       title: `${moduleTitle}：${profileTitle}`,
-      path: '/pages/home/home'
+      path: `/pages/module-quiz/module-quiz?id=${moduleId}`
+    };
+  },
+
+  onShareTimeline() {
+    const moduleTitle = this.data.module ? this.data.module.title : 'SBTI 测试';
+    const profileTitle = this.data.profile ? this.data.profile.title : '综合型';
+    return {
+      title: `${moduleTitle}：${profileTitle}`
     };
   }
 });
