@@ -1,97 +1,74 @@
 # SBTI 测试中心（微信小程序）
 
-一个聚合式人格测试小程序，包含深度主测和多个轻量模块，目标是从不同角度形成「人格 x 职业 x 沟通 x 韧性 x 城市」的综合画像。
+一个聚合式人格趣味测试小程序。当前包含 SBTI 深度主测、MBTI/Big Five、DISC、九型人格、霍兰德 RIASEC、爱之语言、EQ、麋鹿主题、职场与关系等模块，目标是形成“人格 x 职业 x 沟通 x 关系 x 城市”的综合画像。
 
-## 1. 当前模块
+## 当前规模
 
-### 1.1 深度主测
-- `SBTI 人格实验室`（43 题）
-- 输出：SBTI 主画像 + MBTI 补充 + 城市匹配 + 海报分享
+- 小程序名称：sbti人格趣味调侃
+- 总模块：16 个
+- 通用轻量测试：15 个
+- 总题库：568 题
+- 热门框架新增：DISC、九型人格、霍兰德 RIASEC、爱之语言、EQ
+- 单个通用模块题量：32-40 题
 
-### 1.2 轻量模块（聚合入口）
-- `MBTI 快速倾向测评`（32 题）
-- `MBTI 职场协作版`（32 题）
-- `职场驱动力测评`（34 题）
-- `沟通风格识别`（34 题）
-- `决策风格测评`（34 题）
-- `情绪恢复力测评`（32 题）
-- `麋鹿冬原性格测试`（36 题）
-- `麋鹿亲密偏好测试`（40 题）
-- `亲密表达压力指数`（40 题）
-- `Big Five 轻量版`（32 题）
+## 模块列表
 
-所有轻量模块统一支持：
-- 断点续测
-- 自动评分
-- 结果摘要复制
-- 返回测试中心继续下一模块
-- 首页按主题分区展示（含亲密关系专区）
-- 题量统一优化到 30-50 区间（当前为 32-40 题）
+### 深度主测
+- SBTI 人格实验室：43 题，输出 SBTI 主画像、MBTI 补充、城市匹配和分享海报。
 
-## 2. 目录结构
+### 热门测评
+- DISC 行为风格测试：36 题
+- 九型人格动机测试：36 题
+- 霍兰德职业兴趣测试：36 题
+- 爱之语言日常版：35 题
+- EQ 情绪能力测试：36 题
 
-```text
-project-root/
-├─ app.js
-├─ app.json
-├─ app.wxss
-├─ pages/
-│  ├─ home/                # 测试聚合首页
-│  ├─ index/               # 深度主测问卷
-│  ├─ result/              # 深度主测结果页（含城市匹配）
-│  ├─ module-quiz/         # 通用轻量模块答题页
-│  └─ module-result/       # 通用轻量模块结果页
-├─ utils/
-│  ├─ questions.js         # 深度主测题库
-│  ├─ data.js              # 深度主测人格素材
-│  └─ module-tests.js      # 聚合模块题库
-└─ docs/
-   ├─ ALGORITHM.md
-   └─ TESTING.md
-```
+### 原有聚合模块
+- MBTI 快速倾向测评：32 题
+- MBTI 职场协作版：32 题
+- 职场驱动力测评：34 题
+- 沟通风格识别：34 题
+- 决策风格测评：34 题
+- 情绪恢复力测评：32 题
+- 麋鹿冬原性格测试：36 题
+- 麋鹿亲密偏好测试：40 题
+- 亲密表达压力指数：40 题
+- Big Five 轻量版：32 题
 
-## 3. 本地运行（微信开发者工具）
+## 功能特性
 
-1. 打开微信开发者工具并导入当前项目根目录
-2. 选择 AppID（或测试号）
-3. 编译后默认进入 `pages/home/home`（聚合首页）
+- 首页测试货架：热门模块横向展示，全部模块按主题分区。
+- 通用答题页：断点续测、自动进度、题目高亮、原生分享按钮。
+- 通用结果页：维度分布、主画像、行动建议、城市气质标签、结果复制与分享。
+- 内容边界：所有测试均为趣味自测和自我观察，不用于医学、临床、招聘或重大决策诊断。
 
-建议至少验证两轮：
-- 开发者工具模拟器（快速回归）
-- 真机（iOS/Android 各一台）
+## 本地运行
 
-## 4. 常见报错与修复
+1. 使用微信开发者工具导入当前项目根目录。
+2. 选择自己的 AppID 或测试号。
+3. 编译后默认进入 pages/home/home。
+4. 建议至少验证：首页、热门模块、任意普通模块完整答题、主测结果页、分享按钮、海报保存。
 
-### 4.1 `Unexpected token ﻿ in JSON at position 0`
-原因：`app.json` 文件头含 BOM。
+## 常见报错
 
-修复：
-- 把文件编码改为 `UTF-8（无 BOM）`
-- 确保文件名是 `app.json`（不是 `app.json.json`）
+### Unexpected token BOM in JSON at position 0
 
-### 4.2 `invalid app.json permission["scope.writePhotosAlbum"]`
-原因：`scope.writePhotosAlbum` 不是 `app.json permission` 的有效声明项。
+原因：app.json 文件头含 BOM，或文件名误写为 app.json.json。
 
-修复：
-- 删除该权限声明
-- 保存图片时直接使用 `wx.saveImageToPhotosAlbum`，并在运行时处理授权弹窗
+处理：确保文件为 UTF-8 无 BOM，并确认文件名是 app.json。
 
-### 4.3 `app.wxss unexpected invalid char at pos 1`
-原因：`app.wxss` 文件头 BOM 或编码异常。
+### invalid app.json permission["scope.writePhotosAlbum"]
 
-修复：
-- 将 `app.wxss` 保存为 `UTF-8（无 BOM）`
+原因：scope.writePhotosAlbum 不是 app.json permission 的有效声明项。
 
-## 5. 内容来源与二创说明
+处理：不要在 app.json 声明该权限。保存图片时直接调用 wx.saveImageToPhotosAlbum，并在运行时处理授权弹窗。
 
-- 深度主测（SBTI）沿用项目内二创设定。
-- MBTI 与 Big Five 相关轻量模块采用公开概念框架做题型二创，不复用任何闭源量表原题。
-- 城市匹配属于画像化推荐，仅用于娱乐和自我观察，不用于真实迁居决策。
-- 调研来源详见：`docs/CONTENT-SOURCES.md`
+### app.wxss unexpected invalid char at pos 1
 
-## 6. 发布前检查
+原因：app.wxss 文件头含 BOM 或编码异常。
 
-- 按 `docs/TESTING.md` 完整回归
-- 检查 `app.json / app.wxss` 无 BOM
-- 深度主测与轻量模块至少各跑完 1 轮
-- 确认结果页复制、分享、海报、保存逻辑正常
+处理：保存为 UTF-8 无 BOM。
+
+## 内容来源与二创
+
+详见 docs/CONTENT-SOURCES.md。本项目只参考公开框架的维度结构和常见分类，不复制任何商业量表原题，所有题目均为项目原创场景题。

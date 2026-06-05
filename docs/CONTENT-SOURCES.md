@@ -1,45 +1,63 @@
 # 内容调研与二创说明
 
-本文档记录本项目在设计轻量测试模块时参考的公开资料与二创原则。
+本文档记录本项目在设计人格趣味测试模块时参考的公开资料、热门测试方向和二创边界。
 
-## 1. 参考来源（公开概念）
+## 市场热门方向
 
-1. MBTI 偏好对（E/I、S/N、T/F、J/P）说明  
-   https://www.myersbriggs.org/my-mbti-personality-type/the-mbti-preferences/
+当前小程序优先覆盖以下市面常见测试方向：
 
-2. Myers-Briggs 框架总览  
-   https://www.myersbriggs.org/my-mbti-personality-type/myers-briggs-overview/
+- MBTI / 16 型人格
+- Big Five / OCEAN 大五人格
+- DISC 行为风格
+- Enneagram 九型人格
+- Holland RIASEC 霍兰德职业兴趣
+- Love Languages 爱之语言
+- EQ 情绪能力
+- 麋鹿/动物拟人类趣味测试
 
-3. 韧性因素系统综述（个体/社会层面）  
-   https://www.nature.com/articles/s44271-024-00138-w
+## 参考来源
 
-4. 压力管理与恢复建议（科普框架）  
+1. 16Personalities 人格类型与四组角色说明  
+   https://www.16personalities.com/personality-types
+
+2. 16Personalities 框架说明  
+   https://www.16personalities.com/articles/our-theory%E2%80%8C
+
+3. Truity 测试聚合页，用于确认市面常见测试品类  
+   https://www.truity.com/
+
+4. DiSC 四类风格说明  
+   https://www.discprofile.com/disc-styles
+
+5. University of Washington 对 Holland RIASEC 六类职业兴趣的说明  
+   https://careers.uw.edu/resources/uw-majors-holland-types/
+
+6. The Enneagram Institute 九型人格类型说明  
+   https://www.enneagraminstitute.com/type-descriptions/
+
+7. Cleveland Clinic 对五种爱之语言的科普说明  
+   https://health.clevelandclinic.org/love-languages
+
+8. TestWhat 测试平台，用于观察中文测试平台常见模块组合  
+   https://www.testwhat.com/?r=SOLO
+
+9. NIH 压力管理与恢复力科普框架  
    https://newsinhealth.nih.gov/2020/10/manage-stress-build-resilience
 
-5. 麋鹿体系相关题量分层与玩法入口（用于题量设计参考，不复用原题）  
-   https://sbti.anmeisheng.com/
+10. 麋鹿测试相关页面，用于观察题量、分类与趣味包装方式，不复用原题  
+    https://mbti.miluceshi.cn/  
+    https://srinow.miluceshi.cn/
 
-6. 驯鹿角色问答风格（用于“动物人格场景化”题干表达参考）  
-   https://www.vam.ac.uk/mused/random/personality-quiz-which-reindeer-are-you/
+## 二创规则
 
-7. 麋鹿亲密偏好相关页面（用于题量与维度描述参考，不复用原题）  
-   https://mbti.miluceshi.cn/
+- 不复制任何闭源量表、商业测试或网页原题。
+- 只参考公开维度结构，例如 DISC 的 D/I/S/C、RIASEC 的 R/I/A/S/E/C、九型人格的九类动机。
+- 题目全部改写为项目原创的日常、职场、关系、城市和协作场景。
+- 每题只做趣味画像评分，不输出医学、临床、招聘或职业决策结论。
+- 结果文案强调行动建议和自我观察，避免标签化、病理化和绝对化。
 
-8. 亲密表达压力相关页面（用于维度框架参考，不复用原题）  
-   https://srinow.miluceshi.cn/
+## 风险边界
 
-9. SIS/SES 双控制模型论文索引（用于“兴奋-抑制”框架参考）  
-   https://pubmed.ncbi.nlm.nih.gov/12476243/
-
-## 2. 二创改写规则
-
-- 不复制任何闭源量表原题。
-- 仅使用公开概念框架，题目均为项目原创表述。
-- 轻量模块定位为娱乐和自我观察，不替代心理测量工具。
-- 亲密关系模块仅用于自我观察，并在入口与结果页增加提示。
-- 每个模块都输出“可执行建议 + 城市场景标签”，强调行动化而非标签化。
-
-## 3. 风险与边界
-
-- 本项目结果不用于医学、心理诊断、治疗或重大决策。
-- 若用户长期存在明显心理困扰，应引导寻求专业帮助。
+- 小程序结果不用于医学诊断、心理诊断、治疗、招聘筛选或重大人生决策。
+- 亲密关系类模块只讨论沟通偏好和关系表达，不包含露骨内容。
+- 若用户长期存在明显心理困扰，应引导其寻求专业帮助。

@@ -1,47 +1,85 @@
 <view class="container home-page">
   <view class="hero">
-    <view class="hero-badge">SBTI TEST HUB</view>
-    <view class="hero-title">聚合测试中心</view>
-    <view class="hero-desc">把人格、职业、沟通、韧性与城市适配聚合到一个小程序里，形成连续可追踪的成长画像。</view>
-    <view class="tag-list">
-      <view class="tag" wx:for="{{tags}}" wx:key="*this">{{item}}</view>
+    <view class="hero-noise"></view>
+    <view class="hero-topline">
+      <view class="hero-badge">SBTI TEST ATLAS</view>
+      <button class="btn-share ghost" open-type="share">分享</button>
     </view>
-    <button class="btn-share" open-type="share">分享测试中心</button>
-  </view>
-
-  <view class="overview card">
-    <view class="overview-item">
-      <view class="overview-value">{{stats.moduleCount}}</view>
-      <view class="overview-label">测试模块</view>
+    <view class="hero-title">人格测试宇宙</view>
+    <view class="hero-desc">把 MBTI、大五、DISC、九型、霍兰德、爱之语言、EQ 与麋鹿趣味测试聚合成一个可连续探索的测试小程序。</view>
+    <view class="hero-actions" wx:if="{{featured}}">
+      <button class="btn-primary" bindtap="openModule" data-id="{{featured.id}}">开始 SBTI 主测</button>
+      <button class="btn-secondary" bindtap="onCategoryChange" data-key="market_hot">看热门模块</button>
     </view>
-    <view class="overview-item">
-      <view class="overview-value">{{stats.questionCount}}</view>
-      <view class="overview-label">题库总量</view>
-    </view>
-    <view class="overview-item">
-      <view class="overview-value">{{stats.totalMinutes}}</view>
-      <view class="overview-label">约总分钟</view>
+    <view class="framework-strip">
+      <view class="framework-tag" wx:for="{{frameworkTags}}" wx:key="*this">{{item}}</view>
     </view>
   </view>
 
-  <view class="featured card accent-{{featured.accent}}" wx:if="{{featured}}">
-    <view class="featured-head">
-      <view>
-        <view class="module-sub">{{featured.subtitle}}</view>
-        <view class="module-title">{{featured.title}}</view>
+  <view class="stats-grid">
+    <view class="stat-card">
+      <view class="stat-value">{{stats.moduleCount}}</view>
+      <view class="stat-label">总模块</view>
+    </view>
+    <view class="stat-card hot">
+      <view class="stat-value">{{stats.hotCount}}</view>
+      <view class="stat-label">热门框架</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-value">{{stats.questionCount}}</view>
+      <view class="stat-label">题库题量</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-value">{{stats.totalMinutes}}</view>
+      <view class="stat-label">约分钟</view>
+    </view>
+  </view>
+
+  <view class="shelf-head">
+    <view>
+      <view class="eyebrow">TRENDING SHELF</view>
+      <view class="section-title">热门测试货架</view>
+    </view>
+    <view class="shelf-note">新题库</view>
+  </view>
+
+  <scroll-view class="hot-scroll" scroll-x="true" enable-flex="true" show-scrollbar="false">
+    <view class="hot-track">
+      <view
+        class="hot-card accent-{{item.accent}}"
+        wx:for="{{hotModules}}"
+        wx:key="id"
+        bindtap="openModule"
+        data-id="{{item.id}}"
+      >
+        <view class="hot-rank">TOP {{index + 1}}</view>
+        <view class="hot-title">{{item.title}}</view>
+        <view class="hot-desc">{{item.description}}</view>
+        <view class="hot-meta">
+          <text>{{item.questionCount}} 题</text>
+          <text>{{item.estimatedMinutes}} 分钟</text>
+        </view>
+        <view class="hot-source">{{item.sourceLabel}}</view>
       </view>
-      <view class="badge">{{featured.badge}}</view>
     </view>
-    <view class="module-desc">{{featured.description}}</view>
-    <view class="meta-row">
-      <text>{{featured.questionCount}} 题</text>
-      <text>约 {{featured.estimatedMinutes}} 分钟</text>
-      <text>{{featured.categoryLabel}}</text>
+  </scroll-view>
+
+  <view class="source-card card">
+    <view class="source-title">内容口径</view>
+    <view class="source-desc">只参考公开框架维度做原创题，不搬运原量表题；结果只做趣味画像、自我观察和社交分享。</view>
+    <view class="guide-item" wx:for="{{introPoints}}" wx:key="*this">
+      <view class="guide-dot"></view>
+      <view class="guide-text">{{item}}</view>
     </view>
-    <button class="btn-enter" bindtap="openModule" data-id="{{featured.id}}">开始主测</button>
   </view>
 
-  <view class="section-title">选择你的模块</view>
+  <view class="section-toolbar">
+    <view>
+      <view class="eyebrow">MODULE MAP</view>
+      <view class="section-title">选择测试分区</view>
+    </view>
+  </view>
+
   <scroll-view class="category-scroll" scroll-x="true" enable-flex="true" show-scrollbar="false">
     <view class="category-list">
       <view
@@ -57,41 +95,40 @@
   </scroll-view>
 
   <view class="section-zone" wx:if="{{activeCategory === 'all'}}">
-    <view class="section-card card" wx:for="{{sectionedModules}}" wx:key="key">
+    <view class="section-card card" wx:for="{{sectionedModules}}" wx:for-item="section" wx:key="key">
       <view class="section-head">
-        <view class="section-label">{{item.label}}</view>
-        <view class="section-meta">
-          <text>{{item.count}} 模块</text>
-          <text wx:if="{{item.adultCount}}">{{item.adultCount}} 个提示模块</text>
+        <view>
+          <view class="section-label">{{section.label}}</view>
+          <view class="section-meta">{{section.count}} 个模块 · {{section.questionCount}} 题</view>
         </view>
       </view>
 
       <view class="module-list">
-        <view class="module-card card accent-{{item.accent}}" wx:for="{{item.modules}}" wx:key="id">
+        <view class="module-card accent-{{module.accent}}" wx:for="{{section.modules}}" wx:for-item="module" wx:key="id">
           <view class="module-head">
             <view>
-              <view class="module-sub">{{item.subtitle}} · {{item.categoryLabel}}</view>
-              <view class="module-title">{{item.title}}</view>
+              <view class="module-sub">{{module.subtitle}} · {{module.categoryLabel}}</view>
+              <view class="module-title">{{module.title}}</view>
             </view>
             <view class="badge-stack">
-              <view class="badge">{{item.badge}}</view>
-              <view class="adult-badge" wx:if="{{item.adultOnly}}">提示</view>
+              <view class="badge">{{module.badge}}</view>
+              <view class="hot-badge" wx:if="{{module.hotRank}}">热门</view>
             </view>
           </view>
-          <view class="module-desc">{{item.description}}</view>
+          <view class="module-desc">{{module.description}}</view>
           <view class="meta-row">
-            <text>{{item.questionCount}} 题</text>
-            <text>约 {{item.estimatedMinutes}} 分钟</text>
-            <text wx:if="{{item.adultOnly}}">自我观察</text>
+            <text>{{module.questionCount}} 题</text>
+            <text>约 {{module.estimatedMinutes}} 分钟</text>
+            <text wx:if="{{module.sourceLabel}}">{{module.sourceLabel}}</text>
           </view>
-          <button class="btn-light" bindtap="openModule" data-id="{{item.id}}">进入测评</button>
+          <button class="btn-light" bindtap="openModule" data-id="{{module.id}}">进入测评</button>
         </view>
       </view>
     </view>
   </view>
 
-  <view class="module-list" wx:else>
-    <view class="module-card card accent-{{item.accent}}" wx:for="{{filteredModules}}" wx:key="id">
+  <view class="module-list filtered" wx:else>
+    <view class="module-card accent-{{item.accent}}" wx:for="{{filteredModules}}" wx:key="id">
       <view class="module-head">
         <view>
           <view class="module-sub">{{item.subtitle}} · {{item.categoryLabel}}</view>
@@ -99,14 +136,14 @@
         </view>
         <view class="badge-stack">
           <view class="badge">{{item.badge}}</view>
-          <view class="adult-badge" wx:if="{{item.adultOnly}}">提示</view>
+          <view class="hot-badge" wx:if="{{item.hotRank}}">热门</view>
         </view>
       </view>
       <view class="module-desc">{{item.description}}</view>
       <view class="meta-row">
         <text>{{item.questionCount}} 题</text>
         <text>约 {{item.estimatedMinutes}} 分钟</text>
-        <text wx:if="{{item.adultOnly}}">自我观察</text>
+        <text wx:if="{{item.sourceLabel}}">{{item.sourceLabel}}</text>
       </view>
       <button class="btn-light" bindtap="openModule" data-id="{{item.id}}">进入测评</button>
     </view>
@@ -115,13 +152,5 @@
   <view class="empty card" wx:if="{{activeCategory !== 'all' && !filteredModules.length}}">
     <view class="empty-title">当前分类暂无模块</view>
     <view class="empty-desc">切换上方分类查看其它测试内容。</view>
-  </view>
-
-  <view class="section-title">使用建议</view>
-  <view class="guide card">
-    <view class="guide-item" wx:for="{{introPoints}}" wx:key="*this">
-      <view class="guide-dot"></view>
-      <view class="guide-text">{{item}}</view>
-    </view>
   </view>
 </view>
