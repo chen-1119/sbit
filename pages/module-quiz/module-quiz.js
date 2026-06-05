@@ -47,22 +47,22 @@ Page({
     const module = getModuleById(moduleId);
     if (!module || module.type !== 'generic') {
       wx.showToast({ title: '模块不存在', icon: 'none' });
-      setTimeout(() => wx.navigateBack({ delta: 1 }), 300);
+      setTimeout(() => wx.reLaunch({ url: '/pages/home/home' }), 300);
       return;
     }
 
     const init = () => this.initModule(moduleId, module);
     if (module.adultOnly) {
       wx.showModal({
-        title: '18+ 内容提示',
-        content: '该模块仅供成年人自我观察，结果不用于医学或临床诊断。确认继续吗？',
+        title: '内容提示',
+        content: '该模块仅供自我观察，结果不用于医学或临床诊断。确认继续吗？',
         confirmText: '继续',
         cancelText: '返回',
         success: (res) => {
           if (res.confirm) {
             init();
           } else {
-            setTimeout(() => wx.navigateBack({ delta: 1 }), 200);
+            setTimeout(() => wx.reLaunch({ url: '/pages/home/home' }), 200);
           }
         }
       });
@@ -208,6 +208,7 @@ Page({
     };
     wx.setStorageSync(RESULT_PREFIX + this.data.moduleId, payload);
     wx.removeStorageSync(PROGRESS_PREFIX + this.data.moduleId);
+    this._skipPersistOnUnload = true;
 
     wx.navigateTo({
       url: `/pages/module-result/module-result?id=${this.data.moduleId}`
@@ -215,6 +216,11 @@ Page({
   },
 
   onUnload() {
+    if (this._skipPersistOnUnload) {
+      this._skipPersistOnUnload = false;
+      return;
+    }
+
     if (!this.data.moduleId || !this.data.questions.length) return;
     this.persistProgress(this.data.currentQ, this.data.answers);
   },

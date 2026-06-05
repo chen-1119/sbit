@@ -1,0 +1,15 @@
+# WeChat DevTools local/private state
+project.private.config.json
+.idea/
+.vscode/
+
+# Dependencies and generated output
+node_modules/
+miniprogram_npm/
+dist/
+build/
+
+# Logs and OS noise
+*.log
+.DS_Store
+Thumbs.db

@@ -195,6 +195,11 @@ function normalizeAnswers(rawAnswers) {
   return normalized;
 }
 
+function hasCompleteAnswers(rawAnswers) {
+  if (!Array.isArray(rawAnswers) || rawAnswers.length !== totalQuestionCount) return false;
+  return rawAnswers.every((item) => item === 0 || item === 1 || item === 2);
+}
+
 function getPatternFromAnswers(answerList) {
   let result = '';
   for (let i = 0; i < 15; i++) {
@@ -535,6 +540,14 @@ Page({
 
   onLoad() {
     const raw = wx.getStorageSync('sbti_answers') || [];
+    if (!hasCompleteAnswers(raw)) {
+      wx.showToast({ title: '请先完成测试', icon: 'none' });
+      setTimeout(() => {
+        wx.reLaunch({ url: '/pages/index/index' });
+      }, 300);
+      return;
+    }
+
     answers = normalizeAnswers(raw);
     const savedPref = normalizeCityPreference(wx.getStorageSync(CITY_PREF_KEY));
 

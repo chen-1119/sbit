@@ -70,7 +70,7 @@ function getRowPercentMap(rows) {
   return map;
 }
 
-function computeSRI(rows) {
+function computeExpressionPressure(rows) {
   const map = getRowPercentMap(rows);
   const inhibition = map.inhibition || 0;
   const guilt = map.guilt || 0;
@@ -79,19 +79,19 @@ function computeSRI(rows) {
   const release = map.release || 0;
 
   const riskAvg = (inhibition + guilt + anxiety + norms) / 4;
-  const sriIndex = clamp(Math.round(riskAvg * 0.75 + (100 - release) * 0.25), 0, 100);
+  const pressureIndex = clamp(Math.round(riskAvg * 0.75 + (100 - release) * 0.25), 0, 100);
 
-  let sriLevel = '低';
-  let sriHint = '你当前整体压抑倾向较低，表达和调节能力较为平衡。';
-  if (sriIndex >= 70) {
-    sriLevel = '高';
-    sriHint = '你当前压抑负荷较高，建议优先做安全表达和低风险沟通练习。';
-  } else if (sriIndex >= 40) {
-    sriLevel = '中';
-    sriHint = '你有一定压抑与回避倾向，建议逐步提升表达与边界协商能力。';
+  let pressureLevel = '低';
+  let pressureHint = '你当前整体表达压力较低，表达和调节能力较为平衡。';
+  if (pressureIndex >= 70) {
+    pressureLevel = '高';
+    pressureHint = '你当前表达压力负荷较高，建议优先做安全表达和低风险沟通练习。';
+  } else if (pressureIndex >= 40) {
+    pressureLevel = '中';
+    pressureHint = '你有一定表达回避倾向，建议逐步提升表达与边界协商能力。';
   }
 
-  return { sriIndex, sriLevel, sriHint };
+  return { pressureIndex, pressureLevel, pressureHint };
 }
 
 function buildSummary(module, profile, topRow, secondRow) {
@@ -107,10 +107,10 @@ Page({
     confidence: '中',
     summary: '',
     submittedAtText: '',
-    hasSRI: false,
-    sriIndex: 0,
-    sriLevel: '低',
-    sriHint: ''
+    hasPressureIndex: false,
+    pressureIndex: 0,
+    pressureLevel: '低',
+    pressureHint: ''
   },
 
   onLoad(query) {
@@ -118,7 +118,7 @@ Page({
     const module = getModuleById(moduleId);
     if (!module || module.type !== 'generic') {
       wx.showToast({ title: '模块不存在', icon: 'none' });
-      setTimeout(() => wx.navigateBack({ delta: 1 }), 300);
+      setTimeout(() => wx.reLaunch({ url: '/pages/home/home' }), 300);
       return;
     }
 
@@ -132,7 +132,9 @@ Page({
     const payload = wx.getStorageSync(RESULT_PREFIX + moduleId);
     if (!payload || !Array.isArray(payload.answers)) {
       wx.showToast({ title: '未找到测试结果', icon: 'none' });
-      setTimeout(() => wx.navigateBack({ delta: 1 }), 300);
+      setTimeout(() => {
+        wx.redirectTo({ url: `/pages/module-quiz/module-quiz?id=${moduleId}` });
+      }, 300);
       return;
     }
 
@@ -148,7 +150,7 @@ Page({
     const confidence = getConfidenceLevel(topRow.percent - secondRow.percent);
     const summary = buildSummary(module, profile, topRow, secondRow);
     const submittedAtText = payload.submittedAt ? new Date(payload.submittedAt).toLocaleString() : '';
-    const sri = module.id === 'sri_repression_index' ? computeSRI(rows) : null;
+    const pressureResult = module.id === 'sri_repression_index' ? computeExpressionPressure(rows) : null;
 
     this.setData({
       module,
@@ -157,10 +159,10 @@ Page({
       confidence,
       summary,
       submittedAtText,
-      hasSRI: !!sri,
-      sriIndex: sri ? sri.sriIndex : 0,
-      sriLevel: sri ? sri.sriLevel : '低',
-      sriHint: sri ? sri.sriHint : ''
+      hasPressureIndex: !!pressureResult,
+      pressureIndex: pressureResult ? pressureResult.pressureIndex : 0,
+      pressureLevel: pressureResult ? pressureResult.pressureLevel : '低',
+      pressureHint: pressureResult ? pressureResult.pressureHint : ''
     });
   },
 

@@ -1042,15 +1042,14 @@ const rawModules = [
   {
     id: 'milu_intimacy_pref',
     type: 'generic',
-    title: '麋鹿性偏好人格测试',
-    subtitle: '亲密偏好',
-    description: '参考网上麋鹿测试的题量分层与维度框架，二创为成人关系场景题。仅用于 18+ 用户自我观察。',
-    badge: '18+',
+    title: '麋鹿亲密偏好测试',
+    subtitle: '亲密关系',
+    description: '参考网上麋鹿测试的题量分层与维度框架，二创为亲密关系场景题。仅用于关系偏好自我观察。',
+    badge: '关系',
     estimatedMinutes: 6,
     accent: 'purple',
-    categoryKey: 'adult',
-    categoryLabel: '成人关系',
-    adultOnly: true,
+    categoryKey: 'intimacy',
+    categoryLabel: '亲密关系',
     dimensions: [
       { key: 'bond', label: '情感联结' },
       { key: 'explore', label: '探索开放' },
@@ -1256,15 +1255,14 @@ const rawModules = [
   {
     id: 'sri_repression_index',
     type: 'generic',
-    title: '性压抑指数测试',
-    subtitle: 'SRI 评估',
-    description: '参考网上 SRI 维度设定与双控制模型思路，二创为 18+ 自我观察题，不用于临床诊断。',
-    badge: '18+',
+    title: '亲密表达压力指数',
+    subtitle: '表达压力',
+    description: '参考公开关系表达压力与双控制模型思路，二创为自我观察题，不用于临床诊断。',
+    badge: '压力',
     estimatedMinutes: 6,
     accent: 'orange',
-    categoryKey: 'adult',
-    categoryLabel: '成人关系',
-    adultOnly: true,
+    categoryKey: 'intimacy',
+    categoryLabel: '亲密关系',
     dimensions: [
       { key: 'inhibition', label: '抑制防御' },
       { key: 'guilt', label: '内疚压力' },
@@ -1309,7 +1307,7 @@ const rawModules = [
         q: '关系里出现需求差异时你倾向？',
         options: [
           { text: '回避讨论，先拖着', scores: { anxiety: 2 } },
-          { text: '压抑自己，尽量配合', scores: { inhibition: 2 } },
+          { text: '先克制自己，尽量配合', scores: { inhibition: 2 } },
           { text: '坦诚沟通并设共同规则', scores: { release: 2 } }
         ]
       },
@@ -1332,7 +1330,7 @@ const rawModules = [
       {
         q: '当关系进入冷淡期，你会？',
         options: [
-          { text: '更压抑自己，减少提需求', scores: { inhibition: 2 } },
+          { text: '更克制自己，减少提需求', scores: { inhibition: 2 } },
           { text: '担心被拒，选择沉默', scores: { anxiety: 2 } },
           { text: '主动发起沟通与修复', scores: { release: 2 } }
         ]
@@ -1378,9 +1376,9 @@ const rawModules = [
         ]
       },
       {
-        q: '你是否会因担心后果而长期压抑需求？',
+        q: '你是否会因担心后果而长期压住需求？',
         options: [
-          { text: '是，压抑是常态', scores: { inhibition: 2 } },
+          { text: '是，克制是常态', scores: { inhibition: 2 } },
           { text: '有时会，尤其关系紧张时', scores: { anxiety: 2 } },
           { text: '较少，会先沟通预案', scores: { release: 2 } }
         ]
@@ -1420,7 +1418,7 @@ const rawModules = [
     ],
     resultProfiles: {
       inhibition: {
-        title: '防御压抑型',
+        title: '防御克制型',
         desc: '你更容易通过压低需求来换取表面稳定，长期可能累积内耗。',
         tips: ['从低风险情境练习“小剂量表达”。', '先写下需求，再选择合适时机沟通。'],
         cityVibe: ['节奏稳定', '低刺激环境']
@@ -1628,13 +1626,12 @@ function cloneQuestion(question) {
   };
 }
 
-function buildExpandedQuestion(sourceQuestion, seedIndex, variantRound, baseLength) {
+function buildExpandedQuestion(sourceQuestion, seedIndex) {
   const prefix = SCENARIO_PREFIXES[seedIndex % SCENARIO_PREFIXES.length];
-  const originalIndex = (seedIndex % baseLength) + 1;
   const cloned = cloneQuestion(sourceQuestion);
 
   return Object.assign({}, cloned, {
-    q: `${prefix}${sourceQuestion.q}（扩展情境 ${variantRound}-${originalIndex}）`
+    q: `${prefix}${sourceQuestion.q}`
   });
 }
 
@@ -1649,8 +1646,7 @@ function expandQuestions(questions, targetCount) {
 
   while (expanded.length < targetCount) {
     const source = base[seedIndex % baseLength];
-    const variantRound = Math.floor(seedIndex / baseLength) + 1;
-    expanded.push(buildExpandedQuestion(source, seedIndex, variantRound, baseLength));
+    expanded.push(buildExpandedQuestion(source, seedIndex));
     seedIndex += 1;
   }
 

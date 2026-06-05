@@ -58,13 +58,13 @@
   margin-bottom: 12rpx;
 }
 
-.sri-row {
+.pressure-row {
   display: flex;
   align-items: center;
   gap: 18rpx;
 }
 
-.sri-index {
+.pressure-index {
   width: 126rpx;
   height: 126rpx;
   border-radius: 50%;
@@ -78,17 +78,17 @@
   flex-shrink: 0;
 }
 
-.sri-info {
+.pressure-info {
   flex: 1;
 }
 
-.sri-level {
+.pressure-level {
   font-size: 26rpx;
   color: #2f3b48;
   font-weight: 650;
 }
 
-.sri-hint {
+.pressure-hint {
   margin-top: 8rpx;
   font-size: 23rpx;
   color: #5d6976;

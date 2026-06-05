@@ -62,7 +62,7 @@
         <view class="section-label">{{item.label}}</view>
         <view class="section-meta">
           <text>{{item.count}} 模块</text>
-          <text wx:if="{{item.adultCount}}">{{item.adultCount}} 个 18+</text>
+          <text wx:if="{{item.adultCount}}">{{item.adultCount}} 个提示模块</text>
         </view>
       </view>
 
@@ -75,14 +75,14 @@
             </view>
             <view class="badge-stack">
               <view class="badge">{{item.badge}}</view>
-              <view class="adult-badge" wx:if="{{item.adultOnly}}">18+</view>
+              <view class="adult-badge" wx:if="{{item.adultOnly}}">提示</view>
             </view>
           </view>
           <view class="module-desc">{{item.description}}</view>
           <view class="meta-row">
             <text>{{item.questionCount}} 题</text>
             <text>约 {{item.estimatedMinutes}} 分钟</text>
-            <text wx:if="{{item.adultOnly}}">成人主题</text>
+            <text wx:if="{{item.adultOnly}}">自我观察</text>
           </view>
           <button class="btn-light" bindtap="openModule" data-id="{{item.id}}">进入测评</button>
         </view>
@@ -99,14 +99,14 @@
         </view>
         <view class="badge-stack">
           <view class="badge">{{item.badge}}</view>
-          <view class="adult-badge" wx:if="{{item.adultOnly}}">18+</view>
+          <view class="adult-badge" wx:if="{{item.adultOnly}}">提示</view>
         </view>
       </view>
       <view class="module-desc">{{item.description}}</view>
       <view class="meta-row">
         <text>{{item.questionCount}} 题</text>
         <text>约 {{item.estimatedMinutes}} 分钟</text>
-        <text wx:if="{{item.adultOnly}}">成人主题</text>
+        <text wx:if="{{item.adultOnly}}">自我观察</text>
       </view>
       <button class="btn-light" bindtap="openModule" data-id="{{item.id}}">进入测评</button>
     </view>
