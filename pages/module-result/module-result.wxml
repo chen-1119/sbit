@@ -8,6 +8,20 @@
     <view class="submitted-time" wx:if="{{submittedAtText}}">完成时间：{{submittedAtText}}</view>
   </view>
 
+  <view class="analysis-grid">
+    <view class="analysis-card" wx:for="{{analysisCards}}" wx:key="label">
+      <view class="analysis-label">{{item.label}}</view>
+      <view class="analysis-value">{{item.value}}</view>
+      <view class="analysis-detail">{{item.detail}}</view>
+    </view>
+  </view>
+
+  <view class="card insight-card">
+    <view class="section-title">结果怎么理解</view>
+    <view class="insight-text">{{insightText}}</view>
+    <view class="confidence-text">{{confidenceText}}</view>
+  </view>
+
   <view class="card" wx:if="{{hasPressureIndex}}">
     <view class="section-title">表达压力概览</view>
     <view class="pressure-row">
@@ -45,6 +59,19 @@
     <view class="section-title">适配城市气质</view>
     <view class="vibe-list">
       <text class="vibe-tag" wx:for="{{profile.cityVibe}}" wx:key="*this">{{item}}</text>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{nextModules.length}}">
+    <view class="section-title">下一步推荐测试</view>
+    <view class="next-list">
+      <navigator class="next-card" wx:for="{{nextModules}}" wx:key="id" url="{{item.entryUrl}}">
+        <view>
+          <view class="next-title">{{item.title}}</view>
+          <view class="next-meta">{{item.reason}} · {{item.questionCount}} 题 · 约 {{item.estimatedMinutes}} 分钟</view>
+        </view>
+        <view class="next-badge">{{item.badge}}</view>
+      </navigator>
     </view>
   </view>
 

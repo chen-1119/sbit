@@ -6,9 +6,9 @@
       <button class="btn-share ghost" open-type="share">分享</button>
     </view>
     <view class="hero-title">人格测试宇宙</view>
-    <view class="hero-desc">把 MBTI、大五、DISC、九型、霍兰德、爱之语言、EQ 与麋鹿趣味测试聚合成一个可连续探索的测试小程序。</view>
+    <view class="hero-desc">人格测试、MBTI测试、DISC测试、九型人格、霍兰德职业兴趣、爱之语言、EQ情绪能力与麋鹿趣味测试合集。</view>
     <view class="hero-actions" wx:if="{{featured}}">
-      <button class="btn-primary" bindtap="openModule" data-id="{{featured.id}}">开始 SBTI 主测</button>
+      <navigator class="btn-primary" url="{{featured.entryUrl}}">开始 SBTI 主测</navigator>
       <button class="btn-secondary" bindtap="onCategoryChange" data-key="market_hot">看热门模块</button>
     </view>
     <view class="framework-strip">
@@ -35,6 +35,15 @@
     </view>
   </view>
 
+  <view class="seo-card card">
+    <view class="eyebrow dark">SEARCH INTENT</view>
+    <view class="seo-title">小程序搜索关键词承接</view>
+    <view class="seo-desc">首页显式覆盖用户常搜词，方便微信收录和用户快速判断内容范围。后台名称、简介和服务类目仍需在公众平台配置。</view>
+    <view class="keyword-cloud">
+      <view class="keyword-chip" wx:for="{{searchKeywords}}" wx:key="*this">{{item}}</view>
+    </view>
+  </view>
+
   <view class="shelf-head">
     <view>
       <view class="eyebrow">TRENDING SHELF</view>
@@ -45,12 +54,11 @@
 
   <scroll-view class="hot-scroll" scroll-x="true" enable-flex="true" show-scrollbar="false">
     <view class="hot-track">
-      <view
+      <navigator
         class="hot-card accent-{{item.accent}}"
         wx:for="{{hotModules}}"
         wx:key="id"
-        bindtap="openModule"
-        data-id="{{item.id}}"
+        url="{{item.entryUrl}}"
       >
         <view class="hot-rank">TOP {{index + 1}}</view>
         <view class="hot-title">{{item.title}}</view>
@@ -60,9 +68,28 @@
           <text>{{item.estimatedMinutes}} 分钟</text>
         </view>
         <view class="hot-source">{{item.sourceLabel}}</view>
-      </view>
+      </navigator>
     </view>
   </scroll-view>
+
+  <view class="section-toolbar">
+    <view>
+      <view class="eyebrow">GUIDED PATH</view>
+      <view class="section-title">按目标选测试</view>
+    </view>
+  </view>
+
+  <view class="track-grid">
+    <view class="track-card" wx:for="{{journeyTracks}}" wx:for-item="track" wx:key="key">
+      <view class="track-title">{{track.title}}</view>
+      <view class="track-desc">{{track.desc}}</view>
+      <view class="track-modules">
+        <navigator class="track-link" wx:for="{{track.modules}}" wx:for-item="module" wx:key="id" url="{{module.entryUrl}}">
+          {{module.title}}
+        </navigator>
+      </view>
+    </view>
+  </view>
 
   <view class="source-card card">
     <view class="source-title">内容口径</view>
@@ -121,7 +148,7 @@
             <text>约 {{module.estimatedMinutes}} 分钟</text>
             <text wx:if="{{module.sourceLabel}}">{{module.sourceLabel}}</text>
           </view>
-          <button class="btn-light" bindtap="openModule" data-id="{{module.id}}">进入测评</button>
+          <navigator class="btn-light" url="{{module.entryUrl}}">进入测评</navigator>
         </view>
       </view>
     </view>
@@ -145,7 +172,24 @@
         <text>约 {{item.estimatedMinutes}} 分钟</text>
         <text wx:if="{{item.sourceLabel}}">{{item.sourceLabel}}</text>
       </view>
-      <button class="btn-light" bindtap="openModule" data-id="{{item.id}}">进入测评</button>
+      <navigator class="btn-light" url="{{item.entryUrl}}">进入测评</navigator>
+    </view>
+  </view>
+
+  <view class="section-toolbar">
+    <view>
+      <view class="eyebrow">NEXT TESTS</view>
+      <view class="section-title">建议下一批加入</view>
+    </view>
+  </view>
+
+  <view class="idea-list">
+    <view class="idea-card" wx:for="{{nextTestIdeas}}" wx:key="title">
+      <view class="idea-head">
+        <view class="idea-title">{{item.title}}</view>
+        <view class="idea-keyword">{{item.keyword}}</view>
+      </view>
+      <view class="idea-desc">{{item.desc}}</view>
     </view>
   </view>
 

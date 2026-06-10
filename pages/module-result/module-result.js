@@ -1,4 +1,4 @@
-const { getModuleById } = require('../../utils/module-tests.js');
+const { moduleCatalog, getModuleById } = require('../../utils/module-tests.js');
 
 const RESULT_PREFIX = 'module_result_';
 
@@ -62,6 +62,12 @@ function getConfidenceLevel(gap) {
   return '混合';
 }
 
+function getConfidenceText(gap, topRow, secondRow) {
+  if (gap >= 16) return '主导维度明显，结果画像比较集中，可以优先按主画像建议行动。';
+  if (gap >= 7) return '主导维度清楚，但次高维度也会影响你的行为表现。';
+  return '主次维度接近，更适合按混合画像理解，不要只贴单一标签。';
+}
+
 function getRowPercentMap(rows) {
   const map = {};
   rows.forEach((row) => {
@@ -94,9 +100,72 @@ function computeExpressionPressure(rows) {
   return { pressureIndex, pressureLevel, pressureHint };
 }
 
-function buildSummary(module, profile, topRow, secondRow) {
+function buildAnalysisCards(topRow, secondRow, confidence, gap) {
+  return [
+    {
+      label: '主导维度',
+      value: topRow.label,
+      detail: '当前占比 ' + topRow.percent + '%，是这次结果里最突出的倾向。'
+    },
+    {
+      label: '次高维度',
+      value: secondRow.label,
+      detail: '当前占比 ' + secondRow.percent + '%，会影响你的具体表现方式。'
+    },
+    {
+      label: '清晰度',
+      value: confidence,
+      detail: '主次差距 ' + gap + ' 分。' + getConfidenceText(gap, topRow, secondRow)
+    }
+  ];
+}
+
+function buildInsight(profile, topRow, secondRow, confidence, gap) {
+  const lead = '你的结果不是单点标签，而是“' + topRow.label + ' + ' + secondRow.label + '”的组合。';
+  if (confidence === '高') {
+    return lead + '主导倾向足够明显，建议先围绕“' + profile.title + '”做一到两个具体行动实验。';
+  }
+  if (confidence === '中') {
+    return lead + '主次维度同时存在，行动时需要兼顾效率和状态，不建议只按单一画像理解。';
+  }
+  return lead + '两个维度非常接近，说明你会随场景切换策略，建议结合最近一周的真实情境复盘。';
+}
+
+function buildSummary(module, profile, topRow, secondRow, confidence) {
   const cityVibe = profile.cityVibe && profile.cityVibe.length ? profile.cityVibe.join('、') : '多元场景';
-  return `${module.title}结果：你当前更偏向“${profile.title}”。主导维度为 ${topRow.label}（${topRow.percent}%），次高维度为 ${secondRow.label}（${secondRow.percent}%）。适配城市气质：${cityVibe}。`;
+  return module.title + '结果：你当前更偏向“' + profile.title + '”。主导维度为 ' + topRow.label + '（' + topRow.percent + '%），次高维度为 ' + secondRow.label + '（' + secondRow.percent + '%），判定清晰度为' + confidence + '。适配城市气质：' + cityVibe + '。';
+}
+
+function decorateModule(item, reason) {
+  return {
+    id: item.id,
+    title: item.title,
+    subtitle: item.subtitle,
+    badge: item.badge,
+    categoryLabel: item.categoryLabel,
+    questionCount: item.questionCount,
+    estimatedMinutes: item.estimatedMinutes,
+    reason,
+    entryUrl: '/pages/module-quiz/module-quiz?id=' + item.id
+  };
+}
+
+function getNextModules(module) {
+  const candidates = moduleCatalog.filter((item) => item.type === 'generic' && item.id !== module.id);
+  const picked = [];
+
+  candidates
+    .filter((item) => item.categoryKey === module.categoryKey)
+    .slice(0, 2)
+    .forEach((item) => picked.push(decorateModule(item, '同主题延伸')));
+
+  candidates
+    .filter((item) => item.hotRank && !picked.some((pickedItem) => pickedItem.id === item.id))
+    .sort((a, b) => Number(a.hotRank) - Number(b.hotRank))
+    .slice(0, 3 - picked.length)
+    .forEach((item) => picked.push(decorateModule(item, '热门补充')));
+
+  return picked.slice(0, 3);
 }
 
 Page({
@@ -105,6 +174,10 @@ Page({
     rows: [],
     profile: null,
     confidence: '中',
+    confidenceText: '',
+    analysisCards: [],
+    insightText: '',
+    nextModules: [],
     summary: '',
     submittedAtText: '',
     hasPressureIndex: false,
@@ -122,7 +195,7 @@ Page({
       return;
     }
 
-    wx.setNavigationBarTitle({ title: module.title + '结果' });
+    wx.setNavigationBarTitle({ title: module.title + '结果分析' });
     if (wx.showShareMenu) {
       wx.showShareMenu({
         withShareTicket: false,
@@ -133,7 +206,7 @@ Page({
     if (!payload || !Array.isArray(payload.answers)) {
       wx.showToast({ title: '未找到测试结果', icon: 'none' });
       setTimeout(() => {
-        wx.redirectTo({ url: `/pages/module-quiz/module-quiz?id=${moduleId}` });
+        wx.redirectTo({ url: '/pages/module-quiz/module-quiz?id=' + moduleId });
       }, 300);
       return;
     }
@@ -147,16 +220,25 @@ Page({
       tips: ['明确一个月内的主任务', '记录每周实际投入与状态变化'],
       cityVibe: ['均衡环境']
     };
-    const confidence = getConfidenceLevel(topRow.percent - secondRow.percent);
-    const summary = buildSummary(module, profile, topRow, secondRow);
+    const gap = Math.max(0, topRow.percent - secondRow.percent);
+    const confidence = getConfidenceLevel(gap);
+    const confidenceText = getConfidenceText(gap, topRow, secondRow);
+    const analysisCards = buildAnalysisCards(topRow, secondRow, confidence, gap);
+    const insightText = buildInsight(profile, topRow, secondRow, confidence, gap);
+    const summary = buildSummary(module, profile, topRow, secondRow, confidence);
     const submittedAtText = payload.submittedAt ? new Date(payload.submittedAt).toLocaleString() : '';
     const pressureResult = module.id === 'sri_repression_index' ? computeExpressionPressure(rows) : null;
+    const nextModules = getNextModules(module);
 
     this.setData({
       module,
       rows,
       profile,
       confidence,
+      confidenceText,
+      analysisCards,
+      insightText,
+      nextModules,
       summary,
       submittedAtText,
       hasPressureIndex: !!pressureResult,
@@ -178,7 +260,7 @@ Page({
   retake() {
     if (!this.data.module) return;
     wx.redirectTo({
-      url: `/pages/module-quiz/module-quiz?id=${this.data.module.id}`
+      url: '/pages/module-quiz/module-quiz?id=' + this.data.module.id
     });
   },
 
@@ -189,20 +271,20 @@ Page({
   },
 
   onShareAppMessage() {
-    const moduleTitle = this.data.module ? this.data.module.title : '测试结果';
+    const moduleTitle = this.data.module ? this.data.module.title : '人格测试结果';
     const profileTitle = this.data.profile ? this.data.profile.title : '综合型';
     const moduleId = this.data.module ? this.data.module.id : '';
     return {
-      title: `${moduleTitle}：${profileTitle}`,
-      path: `/pages/module-quiz/module-quiz?id=${moduleId}`
+      title: moduleTitle + '结果：' + profileTitle + '｜sbti人格趣味调侃',
+      path: '/pages/module-quiz/module-quiz?id=' + moduleId
     };
   },
 
   onShareTimeline() {
-    const moduleTitle = this.data.module ? this.data.module.title : 'SBTI 测试';
+    const moduleTitle = this.data.module ? this.data.module.title : '人格测试';
     const profileTitle = this.data.profile ? this.data.profile.title : '综合型';
     return {
-      title: `${moduleTitle}：${profileTitle}`
+      title: moduleTitle + '结果：' + profileTitle
     };
   }
 });
