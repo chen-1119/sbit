@@ -5,10 +5,11 @@ const CATEGORY_ORDER = ['market_hot', 'mbti', 'career', 'relationship', 'social'
 const SEARCH_KEYWORDS = [
   '人格测试', 'MBTI测试', 'SBTI人格', 'DISC测试', '九型人格', '大五人格',
   '霍兰德职业兴趣', '爱之语言', 'EQ情绪能力', '麋鹿测试', '职业性格测试', '恋爱关系测试',
-  '依恋风格测试', '社交边界感', '职业价值观', '学习行动力', '关系安全感'
+  '依恋风格测试', '社交边界感', '职业价值观', '学习行动力', '关系安全感',
+  '世界杯测试', '世界杯人格测试', '球迷人格测试', '足球人格测试', '观赛人格'
 ];
 
-const NEW_RELEASE_IDS = ['attachment_security', 'career_values', 'social_boundary', 'learning_drive'];
+const NEW_RELEASE_IDS = ['worldcup_fan_persona', 'attachment_security', 'career_values', 'social_boundary', 'learning_drive'];
 
 const TRACK_CONFIG = [
   {
@@ -40,6 +41,12 @@ const TRACK_CONFIG = [
     title: '成长行动路径',
     desc: '适合看学习行动、情绪恢复和长期执行策略。',
     moduleIds: ['learning_drive', 'energy_reset', 'big5_lite']
+  },
+  {
+    key: 'seasonal',
+    title: '世界杯热点路径',
+    desc: '适合世界杯前和朋友一起测球迷人格、观赛方式和热闹担当。',
+    moduleIds: ['worldcup_fan_persona', 'moose_winter', 'disc_profile']
   }
 ];
 
@@ -66,6 +73,7 @@ function getAudience(item) {
   if (item.categoryKey === 'relationship' || item.categoryKey === 'intimacy') return '适合想看关系表达、沟通需求和边界模式的人。';
   if (item.categoryKey === 'social') return '适合想看社交协作、团队沟通和互动方式的人。';
   if (item.categoryKey === 'growth' || item.categoryKey === 'resilience') return '适合想优化行动策略、情绪恢复和长期节奏的人。';
+  if (item.id === 'worldcup_fan_persona') return '适合世界杯前和朋友一起测，看看谁是懂球军师、气氛发动机或冷门猎手。';
   return '适合想快速获得一个可分享人格画像的人。';
 }
 
@@ -182,7 +190,7 @@ Page({
       totalMinutes: 0,
       hotCount: 0
     },
-    frameworkTags: ['MBTI/16型', 'Big Five', 'DISC', '九型人格', 'RIASEC', '爱之语言', 'EQ', '麋鹿趣味'],
+    frameworkTags: ['世界杯观赛', 'MBTI/16型', 'Big Five', 'DISC', '九型人格', 'RIASEC', '爱之语言', 'EQ', '麋鹿趣味'],
     searchKeywords: SEARCH_KEYWORDS,
     nextTestIdeas: NEXT_TEST_IDEAS,
     introPoints: [
@@ -257,14 +265,14 @@ Page({
 
   onShareAppMessage() {
     return {
-      title: 'sbti人格趣味调侃：MBTI DISC 九型人格测试合集',
+      title: 'sbti人格趣味调侃：世界杯观赛人格 MBTI DISC 测试合集',
       path: '/pages/home/home'
     };
   },
 
   onShareTimeline() {
     return {
-      title: '人格测试合集：MBTI、DISC、九型、霍兰德、爱之语言、EQ'
+      title: '人格测试合集：世界杯观赛人格、MBTI、DISC、九型、霍兰德'
     };
   }
 });

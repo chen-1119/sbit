@@ -18,6 +18,7 @@
 - 职业价值观/工作价值排序
 - 社交边界感/关系负荷
 - 学习行动力/学习风格
+- 世界杯/足球观赛人格
 
 ## 参考来源
 
@@ -52,11 +53,16 @@
     https://mbti.miluceshi.cn/  
     https://srinow.miluceshi.cn/
 
+11. FIFA World Cup 2026 官方页面，用于确认 2026 世界杯的主办国家、城市、48 队与 104 场等基础背景，不复用官方视觉资产
+    https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026
+    https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/host-cities
+
 ## 二创规则
 
 - 不复制任何闭源量表、商业测试或网页原题。
 - 只参考公开维度结构，例如 DISC 的 D/I/S/C、RIASEC 的 R/I/A/S/E/C、九型人格的九类动机。
-- 题目全部改写为项目原创的日常、职场、关系、城市和协作场景。
+- 题目全部改写为项目原创的日常、职场、关系、城市、协作和观赛场景。
+- 世界杯测试只做观赛人格与球迷行为调侃，不做赛果预测、赌球、票务引导或官方授权暗示。
 - 每题只做趣味画像评分，不输出医学、临床、招聘或职业决策结论。
 - 结果文案强调行动建议和自我观察，避免标签化、病理化和绝对化。
 

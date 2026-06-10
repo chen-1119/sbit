@@ -154,6 +154,18 @@ function buildScenarioCards(module, profile, topRow, secondRow, confidence) {
 }
 
 function buildCityMatches(module, profile, topRow) {
+  if (module.id === 'worldcup_fan_persona') {
+    const worldcupCities = [
+      { name: '墨西哥城', reason: '适合重视大赛开幕、历史感和仪式感的球迷。' },
+      { name: '多伦多', reason: '适合喜欢多元文化、公共观赛和朋友组局的人。' },
+      { name: '纽约/新泽西', reason: '适合关注强强对话、全球话题和高密度赛事情绪的人。' }
+    ];
+    return worldcupCities.map((item) => ({
+      name: item.name,
+      reason: item.reason + '你的主导观赛维度是“' + topRow.label + '”，这里按世界杯观赛气质做趣味匹配。'
+    }));
+  }
+
   const categoryPresets = {
     career: [
       { name: '深圳', reason: '机会密度高，适合目标感和成长压力都较强的人。' },

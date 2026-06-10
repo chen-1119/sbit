@@ -6,7 +6,7 @@
       <button class="btn-share ghost" open-type="share">分享</button>
     </view>
     <view class="hero-title">人格测试宇宙</view>
-    <view class="hero-desc">人格测试、MBTI测试、DISC测试、九型人格、霍兰德职业兴趣、爱之语言、EQ情绪能力与麋鹿趣味测试合集。</view>
+    <view class="hero-desc">人格测试、MBTI测试、DISC测试、九型人格、霍兰德职业兴趣、爱之语言、EQ情绪能力、世界杯观赛人格与麋鹿趣味测试合集。</view>
     <view class="hero-actions" wx:if="{{featured}}">
       <navigator class="btn-primary" url="{{featured.entryUrl}}">开始 SBTI 主测</navigator>
       <button class="btn-secondary" bindtap="onCategoryChange" data-key="market_hot">看热门模块</button>
@@ -47,7 +47,7 @@
   <view class="section-toolbar" wx:if="{{newReleaseModules.length}}">
     <view>
       <view class="eyebrow">NEW RELEASES</view>
-      <view class="section-title">新上线四件套</view>
+      <view class="section-title">热点五件套</view>
     </view>
     <view class="shelf-note">已接入</view>
   </view>
