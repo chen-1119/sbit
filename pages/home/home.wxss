@@ -234,6 +234,74 @@
   font-weight: 700;
 }
 
+.release-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14rpx;
+  margin-bottom: 22rpx;
+}
+
+.release-card {
+  position: relative;
+  overflow: hidden;
+  padding: 26rpx;
+  border-radius: 30rpx;
+  background:
+    radial-gradient(circle at 92% 0%, rgba(255, 214, 102, 0.28), transparent 34%),
+    linear-gradient(135deg, #fffdf8 0%, #fff1db 100%);
+  border: 2rpx solid rgba(217, 210, 199, 0.72);
+  box-shadow: 0 16rpx 38rpx rgba(28, 35, 52, 0.08);
+}
+
+.release-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14rpx;
+}
+
+.release-badge {
+  padding: 8rpx 14rpx;
+  border-radius: 999rpx;
+  color: #fff8e8;
+  background: #22313a;
+  font-size: 21rpx;
+  font-weight: 750;
+}
+
+.release-meta {
+  color: #7b8792;
+  font-size: 21rpx;
+}
+
+.release-title {
+  margin-top: 16rpx;
+  font-size: 34rpx;
+  line-height: 1.25;
+  color: #1d2730;
+  font-weight: 850;
+  font-family: 'Songti SC', 'STSong', serif;
+}
+
+.release-desc {
+  margin-top: 10rpx;
+  color: #566370;
+  font-size: 24rpx;
+  line-height: 1.62;
+}
+
+.release-audience,
+.hot-audience,
+.module-audience {
+  margin-top: 12rpx;
+  padding: 12rpx 14rpx;
+  border-radius: 18rpx;
+  color: #2f5d63;
+  background: rgba(31, 111, 120, 0.1);
+  font-size: 22rpx;
+  line-height: 1.5;
+}
+
 .hot-scroll {
   width: 100%;
   white-space: nowrap;
@@ -282,6 +350,11 @@
   font-size: 23rpx;
   color: #5d6976;
   line-height: 1.56;
+}
+
+.hot-audience {
+  background: rgba(255, 214, 102, 0.22);
+  color: #7a4b18;
 }
 
 .hot-meta,
@@ -496,6 +569,11 @@
   color: #596470;
   font-size: 24rpx;
   line-height: 1.65;
+}
+
+.module-audience {
+  background: rgba(232, 122, 93, 0.1);
+  color: #7f4637;
 }
 
 .meta-row {

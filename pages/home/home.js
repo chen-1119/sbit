@@ -1,11 +1,14 @@
 const { moduleCatalog } = require('../../utils/module-tests.js');
 
-const CATEGORY_ORDER = ['market_hot', 'mbti', 'career', 'social', 'strategy', 'resilience', 'moose', 'intimacy', 'core'];
+const CATEGORY_ORDER = ['market_hot', 'mbti', 'career', 'relationship', 'social', 'growth', 'resilience', 'fun', 'intimacy', 'core'];
 
 const SEARCH_KEYWORDS = [
   '人格测试', 'MBTI测试', 'SBTI人格', 'DISC测试', '九型人格', '大五人格',
-  '霍兰德职业兴趣', '爱之语言', 'EQ情绪能力', '麋鹿测试', '职业性格测试', '恋爱关系测试'
+  '霍兰德职业兴趣', '爱之语言', 'EQ情绪能力', '麋鹿测试', '职业性格测试', '恋爱关系测试',
+  '依恋风格测试', '社交边界感', '职业价值观', '学习行动力', '关系安全感'
 ];
+
+const NEW_RELEASE_IDS = ['attachment_security', 'career_values', 'social_boundary', 'learning_drive'];
 
 const TRACK_CONFIG = [
   {
@@ -18,27 +21,33 @@ const TRACK_CONFIG = [
     key: 'career',
     title: '职业方向路径',
     desc: '适合想看岗位偏好、职业兴趣和决策风格。',
-    moduleIds: ['riasec_career_map', 'work_drive', 'decision_style']
+    moduleIds: ['riasec_career_map', 'career_values', 'work_drive', 'decision_style']
   },
   {
     key: 'relationship',
     title: '关系沟通路径',
-    desc: '适合观察关系表达、沟通模式和亲密偏好。',
-    moduleIds: ['love_language_daily', 'communication_mode', 'milu_intimacy_pref']
+    desc: '适合观察安全感、表达方式、沟通模式和边界感。',
+    moduleIds: ['attachment_security', 'love_language_daily', 'communication_mode', 'social_boundary']
   },
   {
     key: 'team',
     title: '社交协作路径',
     desc: '适合看团队协作、情绪能力和职场配合方式。',
     moduleIds: ['disc_profile', 'eq_social_power', 'mbti_workstyle']
+  },
+  {
+    key: 'growth',
+    title: '成长行动路径',
+    desc: '适合看学习行动、情绪恢复和长期执行策略。',
+    moduleIds: ['learning_drive', 'energy_reset', 'big5_lite']
   }
 ];
 
 const NEXT_TEST_IDEAS = [
-  { title: '依恋风格测试', keyword: '关系安全感', desc: '建议新增安全型、焦虑型、回避型、混合型四类关系安全感观察。' },
-  { title: '职业价值观测试', keyword: '工作价值排序', desc: '建议新增收入、自由、稳定、成长、影响力、生活平衡等价值排序。' },
-  { title: '学习行动力测试', keyword: '学习风格', desc: '建议新增输入方式、执行节奏、反馈偏好和拖延触发点分析。' },
-  { title: '社交边界感测试', keyword: '边界与能量', desc: '建议新增社交能量、拒绝能力、关系负荷和恢复方式观察。' }
+  { title: '友情人格测试', keyword: '朋友关系', desc: '可扩展朋友相处、回应期待、玩笑边界和社交默契。' },
+  { title: '消费人格测试', keyword: '消费决策', desc: '可扩展情绪消费、理性预算、体验优先和囤货倾向。' },
+  { title: '城市生活方式测试', keyword: '城市匹配', desc: '可扩展居住节奏、通勤忍耐、夜生活、自然需求和机会密度。' },
+  { title: '恋爱沟通雷区测试', keyword: '沟通雷区', desc: '可扩展冷处理、追问、讲道理、试探和修复方式。' }
 ];
 
 function getCategoryWeight(key) {
@@ -51,9 +60,19 @@ function getEntryUrl(item) {
   return item.type === 'native' ? item.page : '/pages/module-quiz/module-quiz?id=' + item.id;
 }
 
+function getAudience(item) {
+  if (item.type === 'native') return '适合第一次完整体验，先得到主画像再补充专项测试。';
+  if (item.categoryKey === 'career') return '适合想看职业方向、岗位偏好和工作驱动力的人。';
+  if (item.categoryKey === 'relationship' || item.categoryKey === 'intimacy') return '适合想看关系表达、沟通需求和边界模式的人。';
+  if (item.categoryKey === 'social') return '适合想看社交协作、团队沟通和互动方式的人。';
+  if (item.categoryKey === 'growth' || item.categoryKey === 'resilience') return '适合想优化行动策略、情绪恢复和长期节奏的人。';
+  return '适合想快速获得一个可分享人格画像的人。';
+}
+
 function decorateModule(item) {
   return Object.assign({}, item, {
-    entryUrl: getEntryUrl(item)
+    entryUrl: getEntryUrl(item),
+    audience: item.audience || getAudience(item)
   });
 }
 
@@ -153,6 +172,7 @@ Page({
     sectionedModules: [],
     hotModules: [],
     journeyTracks: [],
+    newReleaseModules: [],
     categories: [],
     activeCategory: 'all',
     stats: {
@@ -168,7 +188,7 @@ Page({
     introPoints: [
       '热门框架只借鉴维度结构，不复制任何商业量表原题；题目均为二创场景题。',
       '每个通用模块保持 30-50 题，适合碎片时间连续测试。',
-      '结果页可复制、可分享，适合做朋友间的趣味对照。',
+      '结果页强化主次维度、朋友视角、适用场景和下一步推荐，方便截图与转发。',
       '所有结果仅用于自我观察和娱乐参考，不做医学、临床或职业决策诊断。'
     ]
   },
@@ -183,6 +203,7 @@ Page({
     const sectionedModules = buildSections(rest);
     const hotModules = getHotModules(rest);
     const journeyTracks = buildJourneyTracks(moduleMap);
+    const newReleaseModules = NEW_RELEASE_IDS.map((id) => moduleMap[id]).filter(Boolean);
 
     wx.setNavigationBarTitle({ title: '人格测试合集' });
     this.setData({
@@ -192,6 +213,7 @@ Page({
       sectionedModules,
       hotModules,
       journeyTracks,
+      newReleaseModules,
       categories,
       activeCategory,
       stats

@@ -1,3 +1,5 @@
+const { extraModules, extraTargetCounts } = require('./extra-modules.js');
+
 const sharedMbtiProfiles = {
   E: {
     title: '外向连接型',
@@ -1400,7 +1402,7 @@ const rawModules = [
     estimatedMinutes: 6,
     accent: 'purple',
     categoryKey: 'intimacy',
-    categoryLabel: '亲密关系',
+    categoryLabel: '关系表达',
     dimensions: [
       { key: 'bond', label: '情感联结' },
       { key: 'explore', label: '探索开放' },
@@ -1613,7 +1615,7 @@ const rawModules = [
     estimatedMinutes: 6,
     accent: 'orange',
     categoryKey: 'intimacy',
-    categoryLabel: '亲密关系',
+    categoryLabel: '关系表达',
     dimensions: [
       { key: 'inhibition', label: '抑制防御' },
       { key: 'guilt', label: '内疚压力' },
@@ -1935,6 +1937,8 @@ const rawModules = [
   }
 ];
 
+rawModules.push(...extraModules);
+
 const TARGET_QUESTION_COUNTS = {
   disc_profile: 36,
   enneagram_motive: 36,
@@ -1952,6 +1956,8 @@ const TARGET_QUESTION_COUNTS = {
   sri_repression_index: 40,
   big5_lite: 32
 };
+
+Object.assign(TARGET_QUESTION_COUNTS, extraTargetCounts);
 
 const SCENARIO_PREFIXES = [
   '在高压工作周里，',

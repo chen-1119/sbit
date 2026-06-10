@@ -131,6 +131,83 @@ function buildInsight(profile, topRow, secondRow, confidence, gap) {
   return lead + '两个维度非常接近，说明你会随场景切换策略，建议结合最近一周的真实情境复盘。';
 }
 
+function buildScenarioCards(module, profile, topRow, secondRow, confidence) {
+  const primaryTip = profile.tips && profile.tips.length ? profile.tips[0] : '先做一次低成本行动实验，再根据真实反馈调整。';
+  return [
+    {
+      title: '朋友眼中的你',
+      text: '别人更容易先感受到你的“' + topRow.label + '”：你会把注意力放在自己最在意的秩序、关系、目标或边界上。'
+    },
+    {
+      title: '适合你的场景',
+      text: '更适合能放大“' + profile.title + '”优势的环境，尤其是允许你稳定使用强项、同时不过度消耗次高维度的场景。'
+    },
+    {
+      title: '避坑提醒',
+      text: confidence === '混合' ? '主次维度接近时，不要急着给自己贴死标签；先看最近三次真实选择。' : primaryTip
+    },
+    {
+      title: '组合关键词',
+      text: topRow.label + '是主轴，' + secondRow.label + '是调味。结果更像一个行为配方，而不是固定人设。'
+    }
+  ];
+}
+
+function buildCityMatches(module, profile, topRow) {
+  const categoryPresets = {
+    career: [
+      { name: '深圳', reason: '机会密度高，适合目标感和成长压力都较强的人。' },
+      { name: '上海', reason: '行业分工细，适合专业化、资源连接和结果导向。' },
+      { name: '杭州', reason: '商业与生活平衡感较强，适合长期成长型节奏。' }
+    ],
+    relationship: [
+      { name: '成都', reason: '生活氛围松弛，适合重视关系温度和情绪舒展的人。' },
+      { name: '南京', reason: '节奏稳定、文化感强，适合需要安全感和边界感的人。' },
+      { name: '厦门', reason: '社交压力较轻，适合慢热、重体验和重空间的人。' }
+    ],
+    intimacy: [
+      { name: '成都', reason: '关系氛围温和，适合练习舒展表达和低压沟通。' },
+      { name: '杭州', reason: '秩序与开放并存，适合边界清楚又愿意协商的人。' },
+      { name: '厦门', reason: '节奏轻，适合需要空间和稳定感的人。' }
+    ],
+    social: [
+      { name: '广州', reason: '人情流动自然，适合沟通、协作和现实解决问题。' },
+      { name: '重庆', reason: '互动感强，适合表达直接、情绪能量足的人。' },
+      { name: '长沙', reason: '社交氛围活跃，适合需要反馈和热闹场域的人。' }
+    ],
+    growth: [
+      { name: '杭州', reason: '资源密度和生活感兼具，适合学习成长与长期积累。' },
+      { name: '苏州', reason: '秩序稳定，适合计划推进和复盘沉淀。' },
+      { name: '北京', reason: '知识密度高，适合强输入、强目标和高标准挑战。' }
+    ],
+    resilience: [
+      { name: '昆明', reason: '节奏舒展，适合恢复能量和重建生活秩序。' },
+      { name: '成都', reason: '松弛感强，适合降低长期紧绷。' },
+      { name: '大理', reason: '自然空间足，适合重启和自我整理。' }
+    ],
+    fun: [
+      { name: '哈尔滨', reason: '季节感和故事感强，适合有趣、反差和氛围体验。' },
+      { name: '重庆', reason: '层次丰富、情绪热烈，适合戏剧化人格表达。' },
+      { name: '青岛', reason: '海边秩序感强，适合轻松但不散乱的生活节奏。' }
+    ]
+  };
+
+  const fallback = [
+    { name: '上海', reason: '适合高目标、快反馈和强资源连接。' },
+    { name: '成都', reason: '适合重视关系温度和生活质量。' },
+    { name: '杭州', reason: '适合成长、审美和长期主义并重。' }
+  ];
+  const base = categoryPresets[module.categoryKey] || fallback;
+  return base.map((item) => ({
+    name: item.name,
+    reason: item.reason + '你的主导维度是“' + topRow.label + '”，匹配逻辑来自测试分类与城市气质。'
+  }));
+}
+
+function buildShareHook(module, profile, topRow) {
+  return '可以把结果发给朋友，让对方验证一句话：我是不是更像“' + profile.title + '”，以及“' + topRow.label + '”是不是我最明显的行为底色。';
+}
+
 function buildSummary(module, profile, topRow, secondRow, confidence) {
   const cityVibe = profile.cityVibe && profile.cityVibe.length ? profile.cityVibe.join('、') : '多元场景';
   return module.title + '结果：你当前更偏向“' + profile.title + '”。主导维度为 ' + topRow.label + '（' + topRow.percent + '%），次高维度为 ' + secondRow.label + '（' + secondRow.percent + '%），判定清晰度为' + confidence + '。适配城市气质：' + cityVibe + '。';
@@ -177,6 +254,9 @@ Page({
     confidenceText: '',
     analysisCards: [],
     insightText: '',
+    scenarioCards: [],
+    cityMatches: [],
+    shareHook: '',
     nextModules: [],
     summary: '',
     submittedAtText: '',
@@ -225,6 +305,9 @@ Page({
     const confidenceText = getConfidenceText(gap, topRow, secondRow);
     const analysisCards = buildAnalysisCards(topRow, secondRow, confidence, gap);
     const insightText = buildInsight(profile, topRow, secondRow, confidence, gap);
+    const scenarioCards = buildScenarioCards(module, profile, topRow, secondRow, confidence);
+    const cityMatches = buildCityMatches(module, profile, topRow);
+    const shareHook = buildShareHook(module, profile, topRow);
     const summary = buildSummary(module, profile, topRow, secondRow, confidence);
     const submittedAtText = payload.submittedAt ? new Date(payload.submittedAt).toLocaleString() : '';
     const pressureResult = module.id === 'sri_repression_index' ? computeExpressionPressure(rows) : null;
@@ -238,6 +321,9 @@ Page({
       confidenceText,
       analysisCards,
       insightText,
+      scenarioCards,
+      cityMatches,
+      shareHook,
       nextModules,
       summary,
       submittedAtText,

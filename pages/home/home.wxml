@@ -23,7 +23,7 @@
     </view>
     <view class="stat-card hot">
       <view class="stat-value">{{stats.hotCount}}</view>
-      <view class="stat-label">热门框架</view>
+      <view class="stat-label">热门推荐</view>
     </view>
     <view class="stat-card">
       <view class="stat-value">{{stats.questionCount}}</view>
@@ -42,6 +42,26 @@
     <view class="keyword-cloud">
       <view class="keyword-chip" wx:for="{{searchKeywords}}" wx:key="*this">{{item}}</view>
     </view>
+  </view>
+
+  <view class="section-toolbar" wx:if="{{newReleaseModules.length}}">
+    <view>
+      <view class="eyebrow">NEW RELEASES</view>
+      <view class="section-title">新上线四件套</view>
+    </view>
+    <view class="shelf-note">已接入</view>
+  </view>
+
+  <view class="release-grid" wx:if="{{newReleaseModules.length}}">
+    <navigator class="release-card accent-{{item.accent}}" wx:for="{{newReleaseModules}}" wx:key="id" url="{{item.entryUrl}}">
+      <view class="release-top">
+        <view class="release-badge">{{item.badge}}</view>
+        <view class="release-meta">{{item.questionCount}} 题 · {{item.estimatedMinutes}} 分钟</view>
+      </view>
+      <view class="release-title">{{item.title}}</view>
+      <view class="release-desc">{{item.description}}</view>
+      <view class="release-audience">{{item.audience}}</view>
+    </navigator>
   </view>
 
   <view class="shelf-head">
@@ -63,6 +83,7 @@
         <view class="hot-rank">TOP {{index + 1}}</view>
         <view class="hot-title">{{item.title}}</view>
         <view class="hot-desc">{{item.description}}</view>
+        <view class="hot-audience">{{item.audience}}</view>
         <view class="hot-meta">
           <text>{{item.questionCount}} 题</text>
           <text>{{item.estimatedMinutes}} 分钟</text>
@@ -143,6 +164,7 @@
             </view>
           </view>
           <view class="module-desc">{{module.description}}</view>
+          <view class="module-audience">{{module.audience}}</view>
           <view class="meta-row">
             <text>{{module.questionCount}} 题</text>
             <text>约 {{module.estimatedMinutes}} 分钟</text>
@@ -167,6 +189,7 @@
         </view>
       </view>
       <view class="module-desc">{{item.description}}</view>
+      <view class="module-audience">{{item.audience}}</view>
       <view class="meta-row">
         <text>{{item.questionCount}} 题</text>
         <text>约 {{item.estimatedMinutes}} 分钟</text>
@@ -178,8 +201,8 @@
 
   <view class="section-toolbar">
     <view>
-      <view class="eyebrow">NEXT TESTS</view>
-      <view class="section-title">建议下一批加入</view>
+      <view class="eyebrow">ROADMAP</view>
+      <view class="section-title">后续可扩展方向</view>
     </view>
   </view>
 

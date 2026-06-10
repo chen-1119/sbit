@@ -11,14 +11,21 @@
 
 ### 1.2 轻量模块引擎（`module-quiz` + `module-result`）
 - 所有轻量测试复用通用答题页和通用结果页
-- 每个模块在 `utils/module-tests.js` 定义：
+- 基础模块在 `utils/module-tests.js` 定义，扩展模块在 `utils/extra-modules.js` 定义：
   - `dimensions`
   - `questions`
   - `resultProfiles`
+  - 可选 `audience`，用于首页展示“适合谁测”
 - 轻量模块在构建时会自动扩题到目标区间（30-50）：
   - 通过 `TARGET_QUESTION_COUNTS` 指定每个模块目标题量
   - 复用原始题并生成场景化扩展题干，保持评分维度一致
 - 算法自动计算每个维度得分和占比，选取最高维度作为主导画像
+- 结果页会基于 Top1/Top2 继续生成：
+  - 朋友视角
+  - 适用场景
+  - 避坑提醒
+  - 组合关键词
+  - 城市匹配建议
 
 ## 2. 轻量模块评分逻辑
 
@@ -89,7 +96,7 @@
 
 ## 5. 维护原则
 
-- 新增轻量模块时，仅新增 `module-tests.js` 配置，不改通用引擎。
+- 新增轻量模块时，优先新增到 `utils/extra-modules.js`，再通过 `extraTargetCounts` 指定题量，不改通用引擎。
 - 题目均为二创原创，不直接复制量表原题。
 - 城市结果用于娱乐和自我观察，不提供现实迁居决策建议。
 
@@ -105,3 +112,14 @@
 - hotRank 用于首页热门货架排序，sourceLabel 用于展示参考框架来源。
 
 当前热门模块：DISC、九型人格、霍兰德 RIASEC、爱之语言、EQ。
+
+## 7. 新增原创场景模块
+
+当前新增模块：
+
+- `attachment_security`：依恋安全感测试，36 题。
+- `career_values`：职业价值观测试，36 题。
+- `social_boundary`：社交边界感测试，36 题。
+- `learning_drive`：学习行动力测试，36 题。
+
+这类模块通过 `utils/extra-modules.js` 维护，题目全部为原创日常场景题，主要用于补足关系、职业和成长类搜索需求。

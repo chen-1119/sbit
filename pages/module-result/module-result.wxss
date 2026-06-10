@@ -117,6 +117,35 @@
   line-height: 1.56;
 }
 
+.scene-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12rpx;
+  margin-bottom: 16rpx;
+}
+
+.scene-card {
+  padding: 22rpx;
+  border-radius: 24rpx;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(232, 122, 93, 0.16), transparent 36%),
+    #fffaf0;
+  border: 2rpx solid rgba(217, 210, 199, 0.72);
+}
+
+.scene-title {
+  color: #1f6f78;
+  font-size: 25rpx;
+  font-weight: 760;
+}
+
+.scene-text {
+  margin-top: 8rpx;
+  color: #56616e;
+  font-size: 23rpx;
+  line-height: 1.62;
+}
+
 .pressure-row {
   display: flex;
   align-items: center;
@@ -220,6 +249,31 @@
   padding: 8rpx 16rpx;
 }
 
+.city-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.city-card {
+  padding: 18rpx;
+  border-radius: 20rpx;
+  background: rgba(31, 111, 120, 0.08);
+}
+
+.city-name {
+  color: #1f6f78;
+  font-size: 28rpx;
+  font-weight: 800;
+}
+
+.city-reason {
+  margin-top: 6rpx;
+  color: #5d6976;
+  font-size: 23rpx;
+  line-height: 1.58;
+}
+
 .next-list {
   display: flex;
   flex-direction: column;
@@ -262,6 +316,16 @@
   font-size: 24rpx;
   color: #596572;
   line-height: 1.65;
+}
+
+.share-hook {
+  margin-top: 12rpx;
+  padding: 16rpx;
+  border-radius: 18rpx;
+  color: #7a4b18;
+  background: rgba(255, 214, 102, 0.22);
+  font-size: 23rpx;
+  line-height: 1.58;
 }
 
 .btn-copy {

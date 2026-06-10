@@ -22,6 +22,13 @@
     <view class="confidence-text">{{confidenceText}}</view>
   </view>
 
+  <view class="scene-grid" wx:if="{{scenarioCards.length}}">
+    <view class="scene-card" wx:for="{{scenarioCards}}" wx:key="title">
+      <view class="scene-title">{{item.title}}</view>
+      <view class="scene-text">{{item.text}}</view>
+    </view>
+  </view>
+
   <view class="card" wx:if="{{hasPressureIndex}}">
     <view class="section-title">表达压力概览</view>
     <view class="pressure-row">
@@ -62,6 +69,16 @@
     </view>
   </view>
 
+  <view class="card" wx:if="{{cityMatches.length}}">
+    <view class="section-title">城市匹配建议</view>
+    <view class="city-list">
+      <view class="city-card" wx:for="{{cityMatches}}" wx:key="name">
+        <view class="city-name">{{item.name}}</view>
+        <view class="city-reason">{{item.reason}}</view>
+      </view>
+    </view>
+  </view>
+
   <view class="card" wx:if="{{nextModules.length}}">
     <view class="section-title">下一步推荐测试</view>
     <view class="next-list">
@@ -78,6 +95,7 @@
   <view class="card">
     <view class="section-title">结果摘要</view>
     <view class="summary">{{summary}}</view>
+    <view class="share-hook">{{shareHook}}</view>
     <button class="btn-copy" bindtap="copySummary">复制结果文案</button>
   </view>
 
